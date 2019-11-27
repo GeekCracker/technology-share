@@ -18,3 +18,10 @@ selenium-debug.log
 */.idea
 *.iml
 target
+/technology-share-parent/technology-share-admin-service/*.iml
+/technology-share-parent/technology-share-configuration/*.iml
+/technology-share-parent/technology-share-download/*.iml
+/technology-share-parent/technology-share-front-service/*.iml
+/technology-share-parent/technology-share-import/*.iml
+/technology-share-parent/technology-share-upload/*.iml
+/technology-share-parent/technology-share-preview/*.iml
