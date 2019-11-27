@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.technology.share</groupId>
+    <artifactId>technology-share-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+    </parent>
+
+    <properties>
+        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+        <mysql.connector.version>5.1.44</mysql.connector.version>
+        <mybatis.plus.version>3.2.0</mybatis.plus.version>
+        <sharding.jdbc.version>4.0.0-RC2</sharding.jdbc.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-core</artifactId>
+                <version>${sharding.jdbc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>technology-share-front-boot</module>
+        <module>technology-share-admin-boot</module>
+        <module>technology-share-domain</module>
+        <module>technology-share-admin-gateway-api</module>
+        <module>technology-share-front-gateway-api</module>
+        <module>technology-share-admin-service</module>
+        <module>technology-share-front-service</module>
+        <module>technology-share-dao</module>
+        <module>technology-share-exception</module>
+        <module>technology-share-utils</module>
+        <module>technology-share-upload</module>
+        <module>technology-share-download</module>
+        <module>technology-share-import</module>
+        <module>technology-share-export</module>
+        <module>technology-share-preview</module>
+        <module>technology-share-configuration</module>
+    </modules>
+</project>
