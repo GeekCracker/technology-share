@@ -9,6 +9,8 @@ public class User extends BaseEntity {
 
     private String userPassword;
 
+    private Long age;
+
     public String getUserName() {
         return userName;
     }
@@ -23,5 +25,13 @@ public class User extends BaseEntity {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
     }
 }

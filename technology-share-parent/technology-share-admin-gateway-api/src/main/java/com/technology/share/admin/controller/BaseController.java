@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.technology.share.domain.BaseEntity;
+import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.utils.GenericsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,8 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      * @return 返回结果
      */
     @RequestMapping("queryById")
-    public ResponseResult queryById(Long id){
-        return ResponseResult.ok(getService().getById(id));
+    public ResponseResult queryById(String id){
+        return ResponseResult.ok(getService().getById(IdTypeHandler.decode(id)));
     }
 
     /**
@@ -62,8 +63,8 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      * @return 返回操作信息
      */
     @RequestMapping("deleteById")
-    public ResponseResult deleteById(Long id){
-        return ResponseResult.ok(getService().removeById(id));
+    public ResponseResult deleteById(String id){
+        return ResponseResult.ok(getService().removeById(IdTypeHandler.decode(id)));
     }
 
 

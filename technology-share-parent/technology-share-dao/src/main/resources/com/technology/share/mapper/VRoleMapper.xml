@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.technology.share.mapper.VRoleMapper">
+    <resultMap type="com.technology.share.domain.view.VRole" id="vRoleResultMap">
+        <id column="id" property="id" typeHandler="com.technology.share.handler.IdTypeHandler" />
+        <result column="role_name" property="roleName"/>
+        <result column="create_by" property="createBy" ></result>
+        <result column="create_time" property="createTime" ></result>
+        <result column="update_by" property="updateBy" ></result>
+        <result column="update_time" property="updateTime" ></result>
+        <collection property="permissions" ofType="com.technology.share.domain.Permission">
+            <id column="p_id" property="id" typeHandler="com.technology.share.handler.IdTypeHandler"></id>
+            <result column="permission_name" property="permissionName" ></result>
+            <result column="permission_bit" property="permissionBit" ></result>
+            <result column="parent_id" property="parentId" ></result>
+        </collection>
+    </resultMap>
+</mapper>

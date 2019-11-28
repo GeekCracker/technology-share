@@ -1,15 +1,25 @@
 package com.technology.share.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.technology.share.handler.IdTypeHandler;
 
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 实体类基类，实现了ID加密
+ */
 public class BaseEntity implements Serializable {
 
     /**主键ID*/
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    @TableField(exist = false)
+    private String id;
+
+    // 定义一个idRaw的字段
+    @TableId(value = "id", type = IdType.AUTO)
+    @JsonIgnore
+    private Long idRaw;
 
     /**创建人*/
     private String createBy;
@@ -30,12 +40,29 @@ public class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private Boolean deleted;
 
-    public Long getId() {
+    public String getId() {
+        if (id == null && idRaw > 0) {
+            id = IdTypeHandler.encode(idRaw);
+        }
+        if (id != null && "".equals(id.replaceAll(" ", ""))) {
+            id = null;
+        }
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getIdRaw() {
+        if(id != null && !"".equals(id.replaceAll(" ",""))){
+            return IdTypeHandler.decode(id);
+        }
+        return idRaw;
+    }
+
+    public void setIdRaw(Long idRaw) {
+        this.idRaw = idRaw;
     }
 
     public String getCreateBy() {

@@ -1,7 +1,11 @@
 package com.technology.share.domain;
 
-import java.util.List;
+import com.baomidou.mybatisplus.annotation.TableName;
 
+/**
+ * 权限实体类
+ */
+@TableName("t_permission")
 public class Permission extends BaseEntity {
 
     /**权限名*/
@@ -11,9 +15,29 @@ public class Permission extends BaseEntity {
     private String permissionBit;
 
     /**父级权限*/
-    private Long parentPermission;
+    private Long parentId;
 
-    /**子级权限*/
-    private List<Permission> children;
+    public String getPermissionName() {
+        return permissionName;
+    }
 
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+
+    public String getPermissionBit() {
+        return permissionBit;
+    }
+
+    public void setPermissionBit(String permissionBit) {
+        this.permissionBit = permissionBit;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 }
