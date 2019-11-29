@@ -1,9 +1,5 @@
 function init(){
-	//这里对lyui进行二次开发
-	var arr = ['1','2'];
-	$.map(arr, function(item,index) {
-		console.log(item);
-	});
+	
 }
 
 /**

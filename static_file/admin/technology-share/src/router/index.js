@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/base/home'
 import Login from '@/components/page/login'
+import Permission from '@/components/page/permission'
+import Role from '@/components/page/role'
 
 Vue.use(Router)
 
@@ -14,7 +16,14 @@ export default new Router({
       component: Home,
       children:[
            {
-        	   path:'/Home'
+        	   path:'permission',
+        	   name: 'Permission',
+        	   component: Permission
+           },
+           {
+        	   path:'role',
+        	   name: 'Role',
+        	   component: Role
            }
       ]
     },

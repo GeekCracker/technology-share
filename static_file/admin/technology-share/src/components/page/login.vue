@@ -21,7 +21,10 @@
 		name: 'login',
 		data() {
 			return {
-				form: {}
+				form: {
+					username:'',
+					password:''
+				}
 			}
 		},
 		methods: {
@@ -29,9 +32,12 @@
 				var vm = this;
 				vm.ts.doQuery(vm,'/admin/user/login','post',this.form,null,function(vm,data){
 					if(data.data.code == 200){
-						sessionStorage.setItem("user",data.data.data)
+						var user = data.data.data;
+						localStorage.setItem("user",JSON.stringify(user));
+						localStorage.setItem("username",vm.form.username);
+						localStorage.setItem("password",vm.form.password);
 						vm.$router.push({
-							path: '/home'
+							path: '/home',
 						});
 					}else {
 						vm.$message({
@@ -43,7 +49,8 @@
 			}
 		},
 		mounted: function() {
-			//获取验证码
+			this.form.username = localStorage.getItem("username");
+			this.form.password = localStorage.getItem("password");
 		}
 	}
 </script>

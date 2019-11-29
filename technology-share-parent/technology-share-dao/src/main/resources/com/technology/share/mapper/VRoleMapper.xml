@@ -12,6 +12,7 @@
             <id column="p_id" property="id" typeHandler="com.technology.share.handler.IdTypeHandler"></id>
             <result column="permission_name" property="permissionName" ></result>
             <result column="permission_bit" property="permissionBit" ></result>
+            <result column="permission_link" property="permissionLink" ></result>
             <result column="parent_id" property="parentId" ></result>
         </collection>
     </resultMap>

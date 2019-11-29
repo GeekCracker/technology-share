@@ -17,6 +17,9 @@ public class Permission extends BaseEntity {
     /**权限位*/
     private String permissionBit;
 
+    /**权限下标*/
+    private String permissionIndex;
+
     /**权限链接*/
     private String permissionLink;
 
@@ -40,6 +43,14 @@ public class Permission extends BaseEntity {
 
     public void setPermissionBit(String permissionBit) {
         this.permissionBit = permissionBit;
+    }
+
+    public String getPermissionIndex() {
+        return permissionIndex;
+    }
+
+    public void setPermissionIndex(String permissionIndex) {
+        this.permissionIndex = permissionIndex;
     }
 
     public String getPermissionLink() {

@@ -4,7 +4,7 @@
 			<headNav></headNav>
 		</el-header>			
 		<el-container>
-			<el-aside width="201px">
+			<el-aside>
 				<left></left>
 			</el-aside>
 			<el-main>
@@ -29,7 +29,12 @@
 		},
 		data() {
 			return {
-
+				activeName:'second'
+			}
+		},
+		methods:{
+			handleClick:function(tab,event){
+				
 			}
 		},
 		mounted: function() {
@@ -42,7 +47,7 @@
 		background-color: #E9EEF3;
 		color: #333;
 		text-align: center;
-	}	
+	}
 	.el-header,.el-footer {
 		background-color: #B3C0D1;
 		color: #333;
