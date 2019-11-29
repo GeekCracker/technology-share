@@ -13,9 +13,9 @@ public class VRole extends BaseEntity {
     /**角色名称*/
     private String roleName;
 
-    /**权限列表*/
+    /**权限树*/
     @TableField(exist = false)
-    private List<Permission> permissions;
+    private List<Permission> permissionTree;
 
     public String getRoleName() {
         return roleName;
@@ -25,11 +25,11 @@ public class VRole extends BaseEntity {
         this.roleName = roleName;
     }
 
-    public List<Permission> getPermissions() {
-        return permissions;
+    public List<Permission> getPermissionTree() {
+        return permissionTree;
     }
 
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    public void setPermissionTree(List<Permission> permissionTree) {
+        this.permissionTree = permissionTree;
     }
 }

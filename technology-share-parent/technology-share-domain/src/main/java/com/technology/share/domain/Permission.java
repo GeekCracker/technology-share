@@ -1,6 +1,9 @@
 package com.technology.share.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.util.List;
 
 /**
  * 权限实体类
@@ -14,8 +17,14 @@ public class Permission extends BaseEntity {
     /**权限位*/
     private String permissionBit;
 
+    /**权限链接*/
+    private String permissionLink;
+
     /**父级权限*/
     private Long parentId;
+
+    @TableField(exist = false)
+    private List<Permission> children;
 
     public String getPermissionName() {
         return permissionName;
@@ -33,11 +42,27 @@ public class Permission extends BaseEntity {
         this.permissionBit = permissionBit;
     }
 
+    public String getPermissionLink() {
+        return permissionLink;
+    }
+
+    public void setPermissionLink(String permissionLink) {
+        this.permissionLink = permissionLink;
+    }
+
     public Long getParentId() {
         return parentId;
     }
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public List<Permission> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Permission> children) {
+        this.children = children;
     }
 }

@@ -11,5 +11,12 @@
 
     <artifactId>technology-share-exception</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.technology.share</groupId>
+            <artifactId>technology-share-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("t_role")
 public class Role extends BaseEntity {
 
-
     /**角色名称*/
     private String roleName;
 
