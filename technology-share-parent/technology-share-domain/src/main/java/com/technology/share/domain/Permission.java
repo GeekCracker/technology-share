@@ -2,6 +2,7 @@ package com.technology.share.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.technology.share.handler.IdTypeHandler;
 
 import java.util.List;
 
@@ -17,14 +18,18 @@ public class Permission extends BaseEntity {
     /**权限位*/
     private String permissionBit;
 
-    /**权限下标*/
-    private String permissionIndex;
-
     /**权限链接*/
     private String permissionLink;
 
+    /**权限启用状态*/
+    private Boolean permissionStatus;
+
     /**父级权限*/
-    private Long parentId;
+    @TableField(exist = false)
+    private String parentId;
+
+    @TableField(value = "parent_id")
+    private Long parentIdRow;
 
     @TableField(exist = false)
     private List<Permission> children;
@@ -45,14 +50,6 @@ public class Permission extends BaseEntity {
         this.permissionBit = permissionBit;
     }
 
-    public String getPermissionIndex() {
-        return permissionIndex;
-    }
-
-    public void setPermissionIndex(String permissionIndex) {
-        this.permissionIndex = permissionIndex;
-    }
-
     public String getPermissionLink() {
         return permissionLink;
     }
@@ -61,12 +58,34 @@ public class Permission extends BaseEntity {
         this.permissionLink = permissionLink;
     }
 
-    public Long getParentId() {
+    public Boolean getPermissionStatus() {
+        return permissionStatus;
+    }
+
+    public void setPermissionStatus(Boolean permissionStatus) {
+        this.permissionStatus = permissionStatus;
+    }
+
+    public String getParentId() {
+        if(parentIdRow != null && parentIdRow > 0){
+            return IdTypeHandler.encode(parentIdRow);
+        }
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public Long getParentIdRow() {
+        if(parentId !=null && !"".equals(parentId)){
+            return IdTypeHandler.decode(parentId);
+        }
+        return parentIdRow;
+    }
+
+    public void setParentIdRow(Long parentIdRow) {
+        this.parentIdRow = parentIdRow;
     }
 
     public List<Permission> getChildren() {

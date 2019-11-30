@@ -13,7 +13,8 @@
             <result column="permission_name" property="permissionName" ></result>
             <result column="permission_bit" property="permissionBit" ></result>
             <result column="permission_link" property="permissionLink" ></result>
-            <result column="parent_id" property="parentId" ></result>
+            <result column="permission_status" property="permissionStatus" ></result>
+            <result column="parent_id" property="parentIdRow" ></result>
         </collection>
     </resultMap>
 </mapper>

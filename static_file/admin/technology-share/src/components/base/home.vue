@@ -4,7 +4,7 @@
 			<headNav></headNav>
 		</el-header>			
 		<el-container>
-			<el-aside>
+			<el-aside style="width:auto;">
 				<left></left>
 			</el-aside>
 			<el-main>
@@ -29,7 +29,6 @@
 		},
 		data() {
 			return {
-				activeName:'second'
 			}
 		},
 		methods:{
@@ -53,5 +52,8 @@
 		color: #333;
 		text-align: center;
 		line-height: 60px;
+	}
+	.el-aside{
+		background-color: #545c64;
 	}
 </style>
