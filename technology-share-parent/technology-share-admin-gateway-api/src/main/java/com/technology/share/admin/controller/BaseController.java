@@ -1,6 +1,7 @@
 package com.technology.share.admin.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -65,6 +64,23 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
     @RequestMapping("deleteById")
     public ResponseResult deleteById(String id){
         return ResponseResult.ok(getService().removeById(IdTypeHandler.decode(id)));
+    }
+
+    /**
+     * 批量删除
+     * @param deleteList 传入json格式的需要删除的列表数据
+     * @return 返回操作信息
+     */
+    @RequestMapping("deleteBatchById")
+    public ResponseResult deleteBatchById(String deleteList){
+        JSONArray jsonArray = JSONObject.parseArray(deleteList);
+        List<Long> list = new LinkedList<>();
+        for(Object obj : jsonArray.toArray()){
+            Map<String,Object> map = (Map<String, Object>) obj;
+            list.add(IdTypeHandler.decode(String.valueOf(map.get("id"))));
+        }
+        System.out.println(list);
+        return ResponseResult.ok(getService().removeByIds(list));
     }
 
 

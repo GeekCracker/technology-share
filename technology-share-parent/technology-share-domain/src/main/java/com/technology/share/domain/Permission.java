@@ -21,8 +21,17 @@ public class Permission extends BaseEntity {
     /**权限链接*/
     private String permissionLink;
 
+    /**权限图标*/
+    private String permissionIcon;
+
+    /**权限序号*/
+    private Byte permissionSort;
+
     /**权限启用状态*/
     private Boolean permissionStatus;
+
+    /**权限类型*/
+    private Byte permissionType;
 
     /**父级权限*/
     @TableField(exist = false)
@@ -58,12 +67,36 @@ public class Permission extends BaseEntity {
         this.permissionLink = permissionLink;
     }
 
+    public String getPermissionIcon() {
+        return permissionIcon;
+    }
+
+    public void setPermissionIcon(String permissionIcon) {
+        this.permissionIcon = permissionIcon;
+    }
+
+    public Byte getPermissionSort() {
+        return permissionSort;
+    }
+
+    public void setPermissionSort(Byte permissionSort) {
+        this.permissionSort = permissionSort;
+    }
+
     public Boolean getPermissionStatus() {
         return permissionStatus;
     }
 
     public void setPermissionStatus(Boolean permissionStatus) {
         this.permissionStatus = permissionStatus;
+    }
+
+    public Byte getPermissionType() {
+        return permissionType;
+    }
+
+    public void setPermissionType(Byte permissionType) {
+        this.permissionType = permissionType;
     }
 
     public String getParentId() {

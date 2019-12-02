@@ -13,7 +13,10 @@
             <result column="permission_name" property="permissionName" ></result>
             <result column="permission_bit" property="permissionBit" ></result>
             <result column="permission_link" property="permissionLink" ></result>
+            <result column="permission_icon" property="permissionIcon" ></result>
             <result column="permission_status" property="permissionStatus" ></result>
+            <result column="permission_type" property="permissionType" ></result>
+            <result column="permission_sort" property="permissionSort" ></result>
             <result column="parent_id" property="parentIdRow" ></result>
         </collection>
     </resultMap>
