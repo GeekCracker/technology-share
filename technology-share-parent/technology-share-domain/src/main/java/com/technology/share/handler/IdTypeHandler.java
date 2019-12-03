@@ -140,9 +140,9 @@ public class IdTypeHandler extends BaseTypeHandler<String>{
 	
 	public static void main(String[] args) {
 
-		System.out.println(encode(19));
+		System.out.println(encode(32));
 		System.out.println(encode(1));
-		System.out.println(decode("b8u9"));
+		System.out.println(decode("80"));
 
 		System.out.println(encode(16));
 

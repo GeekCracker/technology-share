@@ -4,13 +4,13 @@
 			<el-menu default-active="1-4-1" :background-color="backgroundColor" :router="router" :text-color="textColor" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
 				<el-submenu v-for="(permission,index) in permissionTree" :index="(index+1)+''">
 					<template slot="title">
-						<i :class="permission.permissionIcon"></i>
+						<i :class="permission.permissionIcon" style="font-size: 23px;margin: 0;"></i>
 						<span slot="title">{{permission.permissionName}}</span>
 					</template>
 					<div v-if="permission.children && permission.children.length > 0" v-for="(c1,i1) in permission.children">
 						<el-menu-item :index="c1.permissionLink">
 							<template slot="title">
-								<i :class="c1.permissionIcon"></i>
+								<i :class="c1.permissionIcon" style="font-size: 23px;margin: 0;"></i>
 								<span slot="title">{{c1.permissionName}}</span>
 							</template>
 						</el-menu-item>

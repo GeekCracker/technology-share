@@ -16,7 +16,6 @@ public class RoleController extends BaseController<Role, RoleService> {
     @Autowired
     private VRoleService vRoleService;
 
-
     /**
      * 根据ID查询
      * @param id 传入ID

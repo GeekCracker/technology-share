@@ -561,7 +561,7 @@
 			</li>
 			<li><span><i class="el-icon-ice-cream-round"></i><span class="icon-name">el-icon-ice-cream-round</span></span>
 			</li>
-			<li><span><i class="el-iconrole"></i><span class="icon-name">el-iconrole</span></span>
+			<li><span><i class="iconfont el-iconrole"></i><span class="icon-name">el-iconrole</span></span>
 			</li>
 		</ul>
 	</el-container>

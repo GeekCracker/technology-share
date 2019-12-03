@@ -11,6 +11,7 @@ import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.utils.GenericsUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -118,7 +119,10 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
         Enumeration<String> parameterNames = request.getParameterNames();
         while(parameterNames.hasMoreElements()){
             String paramName = parameterNames.nextElement();
-            map.put(paramName,request.getParameter(paramName));
+            String value = request.getParameter(paramName);
+            if(StringUtils.isNotBlank(value)){
+                map.put(paramName,value);
+            }
         }
         return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(map),this.entityClass));
     }

@@ -11,8 +11,7 @@ import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ts from './assets/js/global.js'
-//import './assets/aliIcon/iconfont.css'
-
+import '../static/aliIcon/iconfont.css'
 // 创建axios实例对象
 let instance = axios.create({
   timeout: 6000,

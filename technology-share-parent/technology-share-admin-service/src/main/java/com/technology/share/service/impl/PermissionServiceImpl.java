@@ -20,7 +20,6 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByAsc("permission_sort");
         List<Permission> all = this.list(queryWrapper);
-
         if(!all.isEmpty()){
             List<Permission> top = all.stream().filter(item->item.getParentIdRow() ==null || item.getParentIdRow()==0).collect(Collectors.toList());
             deep(top,all);

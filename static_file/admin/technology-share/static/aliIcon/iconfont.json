@@ -55,6 +55,13 @@
       "unicode_decimal": 58896
     },
     {
+      "icon_id": "9656617",
+      "name": "查询",
+      "font_class": "chaxun",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
       "icon_id": "12070815",
       "name": "病人管理",
       "font_class": "tubiaozhizuomobankuozhan-",
