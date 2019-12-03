@@ -17,6 +17,20 @@ module.exports = {
 		    pathRewrite: { 
 		      '^/api': 'http://localhost:8888'     //路径重写 
 		    } 
+	  	},
+	  	'/upload':{
+	  		target: 'http://localhost:8888',    //源地址 
+		    changeOrigin: true,    //改变源 
+		    pathRewrite: { 
+		      '^/api': 'http://localhost:8888'     //路径重写 
+		    } 
+	  	},
+	  	'/static':{
+	  		target: 'http://localhost',    //源地址 
+		    changeOrigin: true,    //改变源 
+		    pathRewrite: { 
+		      '^/api': 'http://localhost:8888'     //路径重写 
+		    } 
 	  	}
     },
 

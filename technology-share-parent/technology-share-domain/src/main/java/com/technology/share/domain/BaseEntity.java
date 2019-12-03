@@ -39,7 +39,7 @@ public class BaseEntity implements Serializable {
     private Date updateTime;
 
     public String getId() {
-        if (id == null && idRaw > 0) {
+        if (id == null && idRaw != null && idRaw > 0) {
             id = IdTypeHandler.encode(idRaw);
         }
         if (id != null && "".equals(id.replaceAll(" ", ""))) {

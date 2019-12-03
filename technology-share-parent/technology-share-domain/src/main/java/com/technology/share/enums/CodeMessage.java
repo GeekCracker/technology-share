@@ -6,6 +6,7 @@ public enum CodeMessage {
     UNKNOWN(-1,"系统异常，请重试..."),
     USERNAME_PASSWORD_IS_BLANK(-2,"用户名或密码不能为空"),
     USERNAME_PASSWORD_IS_ERROR(-3,"用户名或密码不正确"),
+    UPLOAD_FILE_EMPTY(-4,"上传文件内容为空"),
     ;
 
     /**状态*/

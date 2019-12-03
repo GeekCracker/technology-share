@@ -22,6 +22,7 @@
         <sharding.jdbc.version>4.0.0-RC2</sharding.jdbc.version>
         <fastjson.version>1.2.62</fastjson.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
+        <thumbnailator>0.4.8</thumbnailator>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +56,12 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- 缩略图 -->
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

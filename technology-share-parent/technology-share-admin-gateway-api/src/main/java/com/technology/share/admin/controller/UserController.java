@@ -5,6 +5,7 @@ import com.technology.share.domain.User;
 import com.technology.share.domain.view.VRole;
 import com.technology.share.enums.CodeMessage;
 import com.technology.share.exception.BizException;
+import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.service.UserService;
 import com.technology.share.service.VRoleService;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/user")
 public class UserController extends BaseController<User,UserService> {
 
+
+    @Autowired
+    private UserService userService;
     @Autowired
     private VRoleService vRoleService;
 
@@ -67,6 +71,17 @@ public class UserController extends BaseController<User,UserService> {
         User user = getService().getById(id);
         user.setUserPassword(MD5Utils.encode("123456"));
         getService().updateById(user);
+        return ResponseResult.ok();
+    }
+
+    /**
+     * 根据ID启用禁用用户
+     * @param id 传入用户ID
+     * @return 返回操作信息
+     */
+    @RequestMapping("enableDisable")
+    public ResponseResult enableDisable(String id){
+        userService.enableDisable(IdTypeHandler.decode(id));
         return ResponseResult.ok();
     }
 }
