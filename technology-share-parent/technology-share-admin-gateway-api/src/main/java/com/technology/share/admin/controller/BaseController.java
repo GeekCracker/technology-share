@@ -114,6 +114,15 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      * @return 返回请求条件
      */
     protected Wrapper<T> getQueryWrapper(HttpServletRequest request){
+        return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request))));
+    }
+
+    /**
+     * 根据请求获取请求条件
+     * @param request 传入request请求
+     * @return 返回请求条件
+     */
+    protected Map<String,Object> getQueryParam(HttpServletRequest request){
         //组装查询条件
         Map<String,Object> map = new LinkedHashMap<>();
         Enumeration<String> parameterNames = request.getParameterNames();
@@ -124,6 +133,6 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
                 map.put(paramName,value);
             }
         }
-        return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(map),this.entityClass));
+        return map;
     }
 }

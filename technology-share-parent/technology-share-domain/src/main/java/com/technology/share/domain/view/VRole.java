@@ -7,7 +7,7 @@ import com.technology.share.domain.Permission;
 
 import java.util.List;
 
-@TableName(value = "v_t_role",resultMap = "vRoleResultMap")
+@TableName(value = "v_role",resultMap = "vRoleResultMap")
 public class VRole extends BaseEntity {
 
     /**角色名称*/

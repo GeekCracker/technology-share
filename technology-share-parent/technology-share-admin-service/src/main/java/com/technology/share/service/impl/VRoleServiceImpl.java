@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("AdminVRoleService")
 public class VRoleServiceImpl extends BaseServiceImpl<VRoleMapper, VRole> implements VRoleService {
 
     @Override

@@ -1,15 +1,15 @@
-package com.technology.share.domain;
+package com.technology.share.domain.view;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.technology.share.domain.view.VRole;
+import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
 
-@TableName("t_user")
-public class User extends BaseEntity {
+@TableName(value = "v_user")
+public class VUser extends BaseEntity {
 
     /**用户名*/
     private String userName;
@@ -35,9 +35,7 @@ public class User extends BaseEntity {
     @TableField(value = "role_id")
     private Long roleIdRaw;
 
-    /**角色*/
-    @TableField(exist = false)
-    private VRole role;
+    private String roleName;
 
     /**用户启用状态*/
     private Boolean userStatus;
@@ -109,12 +107,12 @@ public class User extends BaseEntity {
         this.roleIdRaw = roleIdRaw;
     }
 
-    public VRole getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(VRole role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Boolean getUserStatus() {

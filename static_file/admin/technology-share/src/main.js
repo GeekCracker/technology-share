@@ -12,6 +12,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ts from './assets/js/global.js'
 import '../static/aliIcon/iconfont.css'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn';
+
 // 创建axios实例对象
 let instance = axios.create({
   timeout: 6000,
@@ -32,12 +35,11 @@ instance.interceptors.request.use(
 
 Vue.config.productionTip = false
 Vue.prototype.ts = ts
+
 Vue.use(ElementUI)
 //使用axios实例对象
 Vue.use(VueAxios, instance)
-
-
-
+Vue.use(CKEditor)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

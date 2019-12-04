@@ -6,6 +6,7 @@ import Login from '@/components/page/login'
 import Permission from '@/components/page/permission'
 import Role from '@/components/page/role'
 import User from '@/components/page/user'
+import Article from '@/components/page/article'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
         	   path: 'user',
         	   name: 'User',
         	   component: User
+           },
+           {
+        	   path: 'article',
+        	   name: 'article',
+        	   component: Article
            }
       ]
     },

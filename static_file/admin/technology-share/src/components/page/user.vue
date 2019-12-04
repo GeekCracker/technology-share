@@ -11,8 +11,8 @@
 			<el-header>
 				<el-row>
 					<span style="float: left;">
-					<el-input style="width: 60%" placeholder="请输入用户名称" ></el-input>
-					<el-button type="primary" icon="iconfont el-iconchaxun" round>查询</el-button>
+					<el-input style="width: 60%" v-model="queryParam.userName" placeholder="请输入用户名称" ></el-input>
+					<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
 				</span>
 					<span style="float: right;">
 					<el-button type="primary" @click="dialogVisible=true;dlgTitle='添加用户';resetForm('userForm');" round>添加</el-button>
@@ -31,11 +31,6 @@
 					<el-table-column label="用户名称" width="100" align="center">
 						<template slot-scope="scope">
 							{{scope.row.userName}}
-						</template>
-					</el-table-column>
-					<el-table-column label="用户密码" width="300" align="center">
-						<template slot-scope="scope">
-							{{scope.row.userPassword}}
 						</template>
 					</el-table-column>
 					<el-table-column label="联系方式" width="150" align="center">
@@ -73,7 +68,7 @@
 					<el-table-column prop="option" label="操作" width="auto" align="center">
 						<template slot-scope="scope">
 							<el-button type="primary" icon="el-icon-info" title="详情" circle></el-button>
-							<el-button type="warning" icon="el-icon-edit" title="修改" circle></el-button>
+							<el-button type="warning" icon="el-icon-edit" @click="dialogVisible = true;dlgTitle='修改用户';init(scope);" title="修改" circle></el-button>
 							<el-button type="danger" @click="deleteOne(scope.row.id)" icon="el-icon-delete" title="删除" circle></el-button>
 							<i title="禁用" @click="enableDisable(scope)" v-if="scope.row.userStatus" style="font-size: 50px;cursor: pointer; color:#409eff;line-height: 50px;vertical-align:middle;margin-left: 10px;" class="el-icon-open"></i>
 							<!-- 启用状态，触发禁用方法 -->
@@ -87,27 +82,32 @@
 					</el-pagination>
 				</div>
 			</el-main>
-			<el-dialog :title="dlgTitle" :visible.sync="dialogVisible" width="50%">
+			<el-dialog :title="dlgTitle" :visible.sync="dialogVisible" :before-close="handleClose" width="50%">
 				<el-form :model="user" :inline="true" status-icon :rules="rules" ref="userForm" label-width="100px">
 					<el-form-item label="用户名称" prop="userName">
 						<el-input type="text" v-model="user.userName"></el-input>
 					</el-form-item>
 					<el-form-item label="用户头像" prop="userHead">
-						<el-upload class="avatar-uploader" list-type="picture-card" action="/upload/uploadFile" :limit="1" :on-preview="handlePictureCardPreview" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :on-remove="handleRemove">
-							<i class="el-icon-plus avatar-uploader-icon"></i>
+						<el-upload class="avatar-uploader" list-type="picture-card" ref="upload" action="/upload/uploadFile" :limit="1" :on-preview="handlePictureCardPreview" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :on-remove="handleRemove">
+							<img v-if="user.userHead && user.userHead != ''" :src="user.userHead" class="avatar-uploader-icon" />
+							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 						</el-upload>
 						<el-dialog :visible.sync="userHeadDialogVisible">
 							<img width="100%" :src="user.userHead" alt="用户头像">
 						</el-dialog>
 					</el-form-item>
-					<el-form-item label=" 用户初始密码 " prop="userPassword ">
-						<el-input type="text " v-model="user.userPassword "></el-input>
+					<el-form-item label="初始密码" prop="userPassword">
+						<el-input type="text" v-model="user.userPassword" placeholder="无法查看，请自行保存"></el-input>
 					</el-form-item>
-					<el-form-item label="联系方式 " prop="userPhone ">
+					<el-form-item label="联系方式" prop="userPhone ">
 						<el-input type="text " v-model="user.userPhone "></el-input>
 					</el-form-item>
-					<el-form-item label="用户角色 " prop="roleId ">
-						<el-input type="text " v-model="user.roleId "></el-input>
+					<el-form-item label="用户角色" prop="roleId ">
+						<el-select v-model="user.roleId" placeholder="请选择">
+							<el-option v-for="item in roles" :key="item.id" :label="item.roleName" :value="item.id">
+							</el-option>
+						</el-select>
+						<!--<el-input type="text " v-model="user.roleId "></el-input>-->
 					</el-form-item>
 					<el-form-item label="排序序号 " prop="userSort ">
 						<el-input type="text " v-model="user.userSort "></el-input>
@@ -133,16 +133,16 @@
 					size: 10
 				},
 				queryParam: {
+					userName: '',
 					pageNum: '',
 					pageSize: ''
 				},
 				user: {
-					userName:'',
+					userName: '',
 					userHead: null,
-					userPassword:'',
-					userPhone:''
-					
+					userPhone: ''
 				},
+				roles: [],
 				dlgTitle: '',
 				dialogVisible: false,
 				userHeadDialogVisible: false,
@@ -180,13 +180,22 @@
 								index: (index + 1),
 								id: item.id,
 								userName: item.userName,
-								userPassword: item.userPassword,
-								userStatus: item.userStatus
+								userHead: item.userHead,
+								userPhone: item.userPhone,
+								userStatus: item.userStatus,
+								roleName: item.roleName
 							}
 						});
 						vm.loading = false;
 					} else {
 
+					}
+				});
+			},
+			queryRole() {
+				this.ts.doPost(this, '/admin/role/queryData', null, null, function(vm, data) {
+					if (data.data.code == 200) {
+						vm.roles = data.data.data;
 					}
 				});
 			},
@@ -264,7 +273,13 @@
 			handlePictureCardPreview(file) {
 				this.userHeadDialogVisible = true;
 			},
-			handleRemove(file, fileList) {
+			handleRemove(file, fileList) {},
+			init(data) {
+				this.user = data.row;
+			},
+			handleClose(done) {
+				this.$refs['upload'].clearFiles();
+				done();
 			},
 			submitForm: function(form) {
 				var formData = this.user;
@@ -276,6 +291,7 @@
 							if (data.data.code == 200) {
 								vm.reQuery();
 								vm.dialogVisible = false;
+								vm.$refs['upload'].clearFiles();
 								type = 'success';
 							} else {
 								type = 'error';
@@ -295,13 +311,12 @@
 				if (fm) {
 					fm.resetFields();
 				}
-				this.user = {
-
-				};
+				this.user = {};
 			}
 		},
 		mounted: function() {
 			this.reQuery();
+			this.queryRole();
 		}
 	}
 </script>
@@ -325,7 +340,13 @@
 	.el-header {
 		padding: 0;
 	}
-	.el-form-item{
+	
+	.el-form-item {
 		width: 45%;
+	}
+	
+	.avatar-uploader-icon {
+		width: 150px;
+		height: 150px;
 	}
 </style>
