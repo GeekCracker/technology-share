@@ -1,7 +1,12 @@
 package com.technology.share.domain.view;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.domain.BaseEntity;
+import com.technology.share.handler.IdTypeHandler;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -12,7 +17,12 @@ public class VArticle extends BaseEntity {
     private String title;
 
     /**文章类型ID*/
-    private Long typeId;
+    @TableField(exist = false)
+    private String typeId;
+
+    @TableField("type_id")
+    @JsonIgnore
+    private Long typeIdRaw;
 
     private String typeName;
 
@@ -32,6 +42,8 @@ public class VArticle extends BaseEntity {
     private Boolean topTen;
 
     /**发布时间*/
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
 
     public String getTitle() {
@@ -42,12 +54,26 @@ public class VArticle extends BaseEntity {
         this.title = title;
     }
 
-    public Long getTypeId() {
+    public String getTypeId() {
+        if(typeIdRaw != null && typeIdRaw > 0){
+            return IdTypeHandler.encode(typeIdRaw);
+        }
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(String typeId) {
         this.typeId = typeId;
+    }
+
+    public Long getTypeIdRaw() {
+        if(typeId != null && !"".equals(typeId)){
+            return IdTypeHandler.decode(typeId);
+        }
+        return typeIdRaw;
+    }
+
+    public void setTypeIdRaw(Long typeIdRaw) {
+        this.typeIdRaw = typeIdRaw;
     }
 
     public String getTypeName() {

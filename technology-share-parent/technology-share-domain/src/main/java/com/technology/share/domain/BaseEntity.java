@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.handler.IdTypeHandler;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class BaseEntity implements Serializable {
 
     /**创建时间(自动填充，无需手动维护)*/
     @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**修改人*/
@@ -36,6 +40,8 @@ public class BaseEntity implements Serializable {
 
     /**修改时间(自动填充，无需手动维护)*/
     @TableField(fill = FieldFill.UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getId() {

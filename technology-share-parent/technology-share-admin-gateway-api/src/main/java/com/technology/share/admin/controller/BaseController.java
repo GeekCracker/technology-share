@@ -114,7 +114,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      * @return 返回请求条件
      */
     protected Wrapper<T> getQueryWrapper(HttpServletRequest request){
-        return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request))));
+        return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),this.entityClass));
     }
 
     /**

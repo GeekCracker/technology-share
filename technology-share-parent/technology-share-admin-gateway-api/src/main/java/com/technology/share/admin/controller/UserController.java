@@ -65,7 +65,7 @@ public class UserController extends BaseController<User,UserService> {
         if(user == null){
             throw new BizException(CodeMessage.USERNAME_PASSWORD_IS_ERROR);
         }
-        VRole role= vRoleService.getById(user.getRoleId());
+        VRole role= vRoleService.getById(user.getRoleIdRaw());
         user.setRole(role);
         return ResponseResult.ok(user);
     }

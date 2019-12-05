@@ -348,10 +348,10 @@
 					});
 				});
 			},
-			handleClick(data, checked, node) {
+			handleClick(data, node) {
 				this.loading = true;
 				this.curParentId = data.id;
-				if (checked && data.children) {
+				if (data.children) {
 					//更新右侧权限列表，根据权限查询子权限
 					this.reQuery();
 				} else {

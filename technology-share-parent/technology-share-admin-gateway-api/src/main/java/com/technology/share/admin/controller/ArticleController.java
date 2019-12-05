@@ -36,6 +36,7 @@ public class ArticleController extends BaseController<Article,ArticleService> {
     @RequestMapping("queryPageData")
     public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum, @RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request) {
         QueryWrapper<VArticle> queryWrapper = new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),VArticle.class));
+        queryWrapper.orderByDesc("publish_time");
         return ResponseResult.ok(vArticleService.page(new Page<VArticle>(pageNum,pageSize),queryWrapper));
     }
 }
