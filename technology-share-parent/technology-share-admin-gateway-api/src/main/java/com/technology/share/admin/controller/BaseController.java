@@ -80,7 +80,6 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
             Map<String,Object> map = (Map<String, Object>) obj;
             list.add(IdTypeHandler.decode(String.valueOf(map.get("id"))));
         }
-        System.out.println(list);
         return ResponseResult.ok(getService().removeByIds(list));
     }
 

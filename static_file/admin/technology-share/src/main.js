@@ -14,7 +14,6 @@ moment.locale('zh-cn');
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ts from './assets/js/global.js'
-import '../static/aliIcon/iconfont.css'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn';
 

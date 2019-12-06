@@ -1,7 +1,13 @@
 <template>
 	<el-container>
 		<ul class="icon-list" @click="click($event)">
-			<li><span><i class="el-icon-platform-eleme"></i><span class="icon-name">el-icon-platform-eleme</span></span>
+			<li v-for="item in icons">
+				<span>
+					<i :class="item.iconClass"></i>
+					<span class="icon-name">{{item.iconClass}}</span>
+				</span>
+			</li>
+			<!--<li><span><i class="el-icon-platform-eleme"></i><span class="icon-name">el-icon-platform-eleme</span></span>
 			</li>
 			<li><span><i class="el-icon-eleme"></i><span class="icon-name">el-icon-eleme</span></span>
 			</li>
@@ -125,7 +131,7 @@
 			</li>
 			<li><span><i class="el-icon-s-marketing"></i><span class="icon-name">el-icon-s-marketing</span></span>
 			</li>
-			<li><span><i class="el-icon-s-flag"></i><span class="icon-name">el-icon-s-flag</span></span>
+			cur<li><span><i class="el-icon-s-flag"></i><span class="icon-name">el-icon-s-flag</span></span>
 			</li>
 			<li><span><i class="el-icon-s-comment"></i><span class="icon-name">el-icon-s-comment</span></span>
 			</li>
@@ -563,22 +569,46 @@
 			</li>
 			<li><span><i class="iconfont el-iconrole"></i><span class="icon-name">el-iconrole</span></span>
 			</li>
+			<li><span><i class="iconfont el-iconicon"></i><span class="icon-name">el-iconicon</span></span>
+			</li>-->
 		</ul>
 	</el-container>
 </template>
 <script>
 	export default{
 		name:'elIcon',
+		data(){
+			return {
+				icons:[]
+			}
+		},
 		methods:{
 			click:function(event){
 				var target = event.target;
 				var className = target.className;
-				if("icon-name" == className){
-					this.$emit('iconSelect', target.innerText);
-				}else{
-					this.$emit('iconSelect', className);
+				if(!className){
+					this.$emit('iconSelect', $(target).find('i')[0].className);
+				}else {
+					if("icon-name" == className){
+						this.$emit('iconSelect', target.innerText);
+					}else{
+						console.log(target);
+						this.$emit('iconSelect', className);
+					}
 				}
+			},
+			reQuery(){
+				this.ts.doPost(this, '/admin/icon/queryData', null, null, function(vm, data) {
+					if (data.data.code == 200) {
+						vm.icons = data.data.data;
+					} else {
+
+					}
+				});
 			}
+		},
+		mounted:function(){
+			this.reQuery();
 		}
 	}
 </script>

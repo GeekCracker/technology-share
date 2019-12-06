@@ -112,7 +112,7 @@
 					this.parentOption.value = scope.row.parentId;
 					this.parentOption.label = scope.row.parentTypeName;
 				}else {
-					this.resetForm();	
+					this.resetForm('typeForm');	
 				}
 			},
 			handleSizeChange(val) {

@@ -324,7 +324,7 @@
 							vm.instance = instance;
 							vm.ts.doPost(vm, '/admin/permission/deleteBatchById', {
 								deleteList: JSON.stringify(selections)
-							}, null, null, function(vm, data) {
+							}, null, function(vm, data) {
 								if (data.data.code == 200) {
 									vm.reQuery();
 									vm.reQueryTree();

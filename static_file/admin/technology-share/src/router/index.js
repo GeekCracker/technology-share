@@ -7,6 +7,11 @@ import Permission from '@/components/page/permission'
 import Role from '@/components/page/role'
 import User from '@/components/page/user'
 import Type from '@/components/page/type'
+import Icon from '@/components/page/icon'
+import Css from '@/components/page/css'
+import Js from '@/components/page/js'
+
+
 import Article from '@/components/page/article'
 
 
@@ -39,6 +44,21 @@ export default new Router({
         	   path: 'type',
         	   name: 'Type',
         	   component: Type
+           },
+           {
+        	   path: 'icon',
+        	   name: 'Icon',
+        	   component: Icon
+           },
+           {
+        	   path: 'css',
+        	   name: 'Css',
+        	   component: Css
+           },
+           {
+        	   path: 'js',
+        	   name: 'Js',
+        	   component: Js
            },
            {
         	   path: 'article',

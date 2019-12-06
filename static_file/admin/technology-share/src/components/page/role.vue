@@ -49,7 +49,9 @@
 			</el-main>
 			<el-dialog :title="dlgTitle" :visible.sync="dialogVisible" width="35%">
 				<el-container>
+					
 					<el-aside>
+						<el-header><h3>权限树</h3></el-header>
 						<el-tree :check-strictly="true" :data="data" ref="tree" show-checkbox :accordion="accordion" :highlight-current="highlightCurrent" node-key="id" :props="defaultProps">
 						</el-tree>
 					</el-aside>

@@ -1,21 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="static/img/logo.png">
-    <title>技术分享</title>
-    <style type="text/css">
-			*{
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="icon" type="image/x-icon" href="static/img/logo.png">
+		<!--<link rel="stylesheet" type="text/css" href="static/aliIcon/iconfont.css" />-->
+		<title>技术分享</title>
+		<style type="text/css">
+			* {
 				margin: 0;
 			}
-			body{
+			
+			body {
 				height: 100%;
 			}
 		</style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+	</head>
+
+	<body>
+		<div id="app"></div>
+		<!-- built files will be auto injected -->
+	</body>
+	<script type="text/javascript">
+		/* import '../static/aliIcon/iconfont.css' */
+		$(function() {
+			//这里动态加载全局的css和js配置文件
+			$.ajax({
+				type: "post",
+				url: "/admin/ext/css/queryData",
+				success: function(data) {
+					if(data.code == 200){
+						var csses = data.data;
+						for(var i in csses){
+							dynamicLoadCss(csses[i].url);
+						}
+					}
+				}
+			});
+			$.ajax({
+				type: "post",
+				url: "/admin/ext/js/queryData",
+				success: function(data) {
+					if(data.code == 200){
+						var jses = data.data;
+						for(var i in jses){
+							dynamicLoadJs(jses[i].url);
+						}
+					}
+				}
+			});
+		});
+
+		function dynamicLoadCss(url) {
+			var head = document.getElementsByTagName('head')[0];
+			var link = document.createElement('link');
+			link.type = 'text/css';
+			link.rel = 'stylesheet';
+			link.href = url;
+			head.appendChild(link);
+		}
+
+		function dynamicLoadJs(url) {
+			var head = document.getElementsByTagName('head')[0];
+			var script = document.createElement('script');
+			script.type = 'text/jajvascript';
+			script.href = url;
+			head.appendChild(script);
+		}
+	</script>
+
 </html>
