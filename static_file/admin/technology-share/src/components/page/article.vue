@@ -11,8 +11,8 @@
 			<el-header>
 				<el-row>
 					<span style="float: left;">
-					<el-input style="width: 60%" placeholder="请输入文章标题" ></el-input>
-					<el-button type="primary" icon="iconfont el-iconchaxun" round>查询</el-button>
+					<el-input style="width: 60%" v-model="queryParam.title" @keyup.enter.native="reQuery();" placeholder="请输入文章标题" ></el-input>
+					<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery();" round>查询</el-button>
 				</span>
 					<span style="float: right;">
 					<el-button type="danger" round>批量删除</el-button>
@@ -145,19 +145,6 @@
 					ckfinder: {
 						uploadUrl: '/upload/uploadCKEditorFile'
 					}
-					/*plugins: [
-                        EssentialsPlugin,
-                        BoldPlugin,
-                        ItalicPlugin,
-                        LinkPlugin,
-                        ParagraphPlugin
-                    ],*/
-                   
-                    /*toolbar: {
-                        items: [
-                            'image'
-                        ]
-                    }*/
 				},
 				loading: false,
 				data:[],

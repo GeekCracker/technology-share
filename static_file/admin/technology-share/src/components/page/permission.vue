@@ -17,7 +17,7 @@
 					<el-header style="height: 40px">
 						<el-row >
 							<span style="float: left;">
-								<el-input v-model="queryParam.permissionName" placeholder="请输入权限名称" style="width: 60%"></el-input>
+								<el-input v-model="queryParam.permissionName" @keyup.enter.native="reQuery();" placeholder="请输入权限名称" style="width: 60%"></el-input>
 								<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
 							</span>
 							<span style="float: right;">

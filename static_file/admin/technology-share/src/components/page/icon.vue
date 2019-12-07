@@ -11,13 +11,13 @@
 			<el-header>
 				<el-row>
 					<span style="float: left;">
-					<el-input style="width: 60%" placeholder="请输入图标class" ></el-input>
-					<el-button type="primary" icon="iconfont el-iconchaxun" round>查询</el-button>
-				</span>
+						<el-input style="width: 60%" v-model="queryParam.iconClass" @keyup.enter.native="reQuery();" placeholder="请输入图标class" ></el-input>
+						<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery();" round>查询</el-button>
+					</span>
 					<span style="float: right;">
-					<el-button type="danger" @click="deleteBatch" round>批量删除</el-button>
-					<el-button type="primary" @click="dialogVisible=true;dlgTitle='添加图标';init()" round>添加</el-button>
-				</span>
+						<el-button type="danger" @click="deleteBatch" round>批量删除</el-button>
+						<el-button type="primary" @click="dialogVisible=true;dlgTitle='添加图标';init()" round>添加</el-button>
+					</span>
 				</el-row>
 			</el-header>
 			<el-main>
@@ -58,7 +58,7 @@
 			<el-dialog :title="dlgTitle" :visible.sync="dialogVisible" width="35%">
 				<el-form :model="icon" :inline="true" status-icon :rules="rules" ref="iconForm" label-width="100px">
 					<el-form-item label="图标class" prop="iconClass">
-						<el-input type="text" v-model="icon.iconClass"></el-input>
+						<el-input type="text" :autofocus="true" v-model="icon.iconClass"></el-input>
 					</el-form-item>
 				</el-form>		
 				<span slot="footer" class="dialog-footer">
@@ -86,6 +86,7 @@
 				icon:{},
 				dlgTitle:'',
 				dialogVisible:false,
+				autofocus:true,
 				rules:{
 					iconClass:[{
 						required: true,
