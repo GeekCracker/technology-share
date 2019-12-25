@@ -1,6 +1,6 @@
 <template>
 	<el-container>
-		<el-aside style="width: auto;">
+		<el-aside style="width:auto;">
 			<el-menu default-active="1-4-1" :background-color="backgroundColor" :router="router" :text-color="textColor" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
 				<el-submenu v-for="(permission,index) in permissionTree" :key="permission.id" :index="(index+1)+''">
 					<template slot="title">
@@ -19,7 +19,7 @@
 			</el-menu>
 		</el-aside>
 		<el-main style="padding: 0;">
-			<el-button style="margin:0;padding: 0;line-height: 900px;" @click="changeIcon" :icon="leftIcon" type="info"></el-button>
+			<el-button style="margin:0;padding: 0;display: block;height: 100%;" @click="changeIcon" :icon="leftIcon" type="info"></el-button>
 		</el-main>
 	</el-container>
 </template>
@@ -67,5 +67,14 @@
 <style scoped>
 	.el-menu-vertical-demo:not(.el-menu--collapse) {
 		min-height: 900px;
+	}
+	.el-container{
+		height: 100%;
+	}
+	.el-aside{
+		height: 100%;
+	}
+	.el-menu{
+		height: 100%;
 	}
 </style>

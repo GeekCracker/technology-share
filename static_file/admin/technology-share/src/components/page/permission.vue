@@ -165,8 +165,7 @@
 					permissionType: '',
 					permissionIcon: '',
 					permissionStatus: true,
-					permissionSort: '',
-					parentId: ''
+					permissionSort: ''
 				},
 				queryParam:{
 					permissionName:'',

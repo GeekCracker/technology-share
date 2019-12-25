@@ -16,6 +16,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import ts from './assets/js/global.js'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn';
+import vUploader from 'v-uploader';//文件上传插件
+import vPlayBack from 'v-playback'//视频预览插件
 
 // 创建axios实例对象
 let instance = axios.create({
@@ -34,16 +36,33 @@ instance.interceptors.request.use(
   error => Promise.error(error)
 )
 
+// v-uploader plugin global config
+const uploaderConfig = {
+  // file uploader service url
+  uploadFileUrl: '/upload/uploadVUploaderFile',
+  // file delete service url
+  deleteFileUrl: '/upload/deleteFile',
+  // set the way to show upload message(upload fail message)
+  showMessage: (vue, message) => {
+    //using v-dialogs to show message
+    vue.$message({message: message,type: "error"});
+    //vue.$dlg.alert(message, {messageType: 'error'});
+  }
+};
+
+
 
 Vue.config.productionTip = false
 Vue.prototype.ts = ts
-
 Vue.use(ElementUI)
 //使用axios实例对象
 Vue.use(VueAxios, instance)
 Vue.use(CKEditor)
+Vue.use(vUploader, uploaderConfig);
+Vue.use(vPlayBack)
 
 //添加全局时间过滤器
+//时间格式转换
 Vue.filter('dateFormat',function(data,format){
 	if(!data || data == ''){
 		return '';
@@ -54,8 +73,25 @@ Vue.filter('dateFormat',function(data,format){
 	}
 	return moment(data).format(format);
 });
-
-
+//文件大小单位转换
+Vue.filter('sizeConvert',function(data,format){
+	if(!data || data == ''){
+		return '';
+	}
+	//默认为MB
+	if(!format){
+		format = 'MB';
+	}
+	if("KB" == format.toUpperCase()){
+		return (Number(data)/1024).toFixed(2) + "KB";
+	}else if("MB" == format.toUpperCase()){
+		return (Number(data)/(1024 * 1024)).toFixed(2) + "MB";
+	}else if("GB" == format.toUpperCase()){
+		return (Number(data)/(1024 * 1024 * 1024)).toFixed(2) + "GB";
+	}else if("TB" == format.toUpperCase()){
+		return (Number(data)/(1024 * 1024 * 1024 * 1024)).toFixed(2) + "TB";
+	}
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

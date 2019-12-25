@@ -155,7 +155,6 @@
 			submitForm(form){
 				var formData = this.extCss;
 				formData.roleIds = JSON.stringify(this.extCss.roleIds);
-				console.log(this.extCss.roleIds);
 				var vm = this;
 				this.$refs[form].validate((valid) => {
 					if (valid) {

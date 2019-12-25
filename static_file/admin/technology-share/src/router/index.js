@@ -7,9 +7,13 @@ import Permission from '@/components/page/permission'
 import Role from '@/components/page/role'
 import User from '@/components/page/user'
 import Type from '@/components/page/type'
+import File from '@/components/page/file'
+import Redis from '@/components/page/redis'
 import Icon from '@/components/page/icon'
 import Css from '@/components/page/css'
 import Js from '@/components/page/js'
+import Label from '@/components/page/label'
+
 
 
 import Article from '@/components/page/article'
@@ -46,6 +50,16 @@ export default new Router({
         	   component: Type
            },
            {
+        	   path: 'file',
+        	   name: 'File',
+        	   component: File
+           },
+           {
+        	   path: 'redis',
+        	   name: 'Redis',
+        	   component: Redis
+           },
+           {
         	   path: 'icon',
         	   name: 'Icon',
         	   component: Icon
@@ -59,6 +73,11 @@ export default new Router({
         	   path: 'js',
         	   name: 'Js',
         	   component: Js
+           },
+           {
+        	   path: 'label',
+        	   name: 'Label',
+        	   component: Label
            },
            {
         	   path: 'article',

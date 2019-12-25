@@ -42,4 +42,17 @@ public class UploadController {
         return map;
     }
 
+    @RequestMapping("uploadVUploaderFile")
+    public Map<String,Object> uploadVUploaderFile(@RequestParam("file")MultipartFile file)throws Exception{
+        if(file == null || file.isEmpty()){
+            throw new BizException(CodeMessage.UPLOAD_FILE_EMPTY);
+        }
+        Map<String,Object> map = new LinkedHashMap<>();
+        FileInfo fileInfo = uploadService.upload(file);
+        map.put("data",fileInfo);
+        map.put("success",true);
+        map.put("url",fileInfo.getBigUri());
+        return map;
+    }
+
 }

@@ -102,7 +102,6 @@
 				this.pageData.current = val;
 				//重新查询
 				this.reQuery();
-
 			},
 			handleSizeChange(val) {
 				//修改每页显示条数
@@ -121,7 +120,7 @@
 						vm.pageData = data.data.data;
 						vm.tableData = $.map(data.data.data.records, function(item, index) {
 							return {
-								index: (index + 1),
+								index: (data.data.data.current - 1) * data.data.data.size + index +1,
 								id: item.id,
 								iconClass: item.iconClass,
 								createTime: item.createTime

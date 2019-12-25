@@ -88,7 +88,7 @@
 						<el-input type="text" v-model="user.userName"></el-input>
 					</el-form-item>
 					<el-form-item label="用户头像" prop="userHead">
-						<el-upload class="avatar-uploader" list-type="picture-card" ref="upload" action="/upload/uploadFile" :limit="1" :on-preview="handlePictureCardPreview" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :on-remove="handleRemove">
+						<el-upload class="avatar-uploader" list-type="picture-card" :show-file-list="false" ref="upload" action="/upload/uploadFile" :limit="1" :on-preview="handlePictureCardPreview" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :on-remove="handleRemove">
 							<img v-if="user.userHead && user.userHead != ''" :src="user.userHead" class="avatar-uploader-icon" />
 							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 						</el-upload>

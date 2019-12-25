@@ -32,6 +32,8 @@
 		"element": "^0.1.4",
 		"element-ui": "^2.13.0",
 		"moment": "^2.24.0",
+		"v-playback": "^1.0.2",
+		"v-uploader": "^1.8.0",
 		"vue": "^2.5.2",
 		"vue-axios": "^2.1.5",
 		"vue-router": "^3.0.1",

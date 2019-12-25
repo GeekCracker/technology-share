@@ -1,7 +1,6 @@
 package com.technology.share.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 文件信息
@@ -16,11 +15,9 @@ public class FileInfo extends BaseEntity {
     private Long size;
 
     /**HASH散列值*/
-    @JsonIgnore
     private String hash;
 
     /**MD5散列值*/
-    @JsonIgnore
     private String md5;
 
     /**缩略图URI*/
