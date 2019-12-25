@@ -8,7 +8,7 @@ function init(){
  * @param conf 配置信息
  * @param func 回调函数
  */
-function doGet(vm,url,params,conf,func){
+function doGet(vm,url,params,headers,func){
 	if(!vm){
 		throw 'vm is not defined';
 	}
@@ -18,9 +18,9 @@ function doGet(vm,url,params,conf,func){
 	vm.axios.get(
 		url,
 		{
-			params:params
-		},
-		conf
+			params:params,
+			headers:headers
+		}
 	)
 	.then(function(data){
 		if(func){
@@ -59,8 +59,21 @@ function doPost(vm,url,data,conf,func){
 		console.log(err);
 	});
 }
+function loginChuangDingIDI(vue,func){
+	vue.ts.doPost(vue, '/api/auth',{username:"admin",password:"1q2w3e4r"},null, function(vm, data) {
+		if (data.data.code == 200) {
+			vm.queryHeader.headers.Authorization = "Authorization "+data.data.data.token;
+			if(func){
+				func(vm);
+			}
+		} else {
+			vm.queryHeader.headers.Authorization = '';
+		}
+	});
+}
 export default{
 	init,
 	doGet,
-	doPost
+	doPost,
+	loginChuangDingIDI
 }
