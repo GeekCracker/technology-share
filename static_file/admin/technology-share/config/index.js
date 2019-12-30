@@ -16,7 +16,7 @@ module.exports = {
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/api': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    target: 'http://192.168.191.3:8888',    //源地址 
+		    target: 'http://192.168.1.161:8888',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/upload':{

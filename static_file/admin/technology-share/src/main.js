@@ -9,14 +9,14 @@ import qs from 'qs'
 import VueAxios from 'vue-axios'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
-moment.locale('zh-cn'); 
+moment.locale('zh-cn')
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ts from './assets/js/global.js'
 import CKEditor from '@ckeditor/ckeditor5-vue'
-import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn';
-import vUploader from 'v-uploader';//文件上传插件
+import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
+import vUploader from 'v-uploader'//文件上传插件
 import vPlayBack from 'v-playback'//视频预览插件
 
 // 创建axios实例对象
