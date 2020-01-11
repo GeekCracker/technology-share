@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.technology.share.domain.BaseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
@@ -104,7 +106,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("queryPageData")
     public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum,@RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request){
-        return ResponseResult.ok(getService().page(new Page<T>(pageNum,pageSize),getQueryWrapper(request)));
+        return ResponseResult.ok(getService().page(new Page<T>(pageNum,pageSize).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
     }
 
     /**
