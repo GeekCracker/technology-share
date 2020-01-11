@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/admin': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    target: 'http://192.168.1.146:9999',    //源地址 
+		    target: 'http://111.231.111.161:9999',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/api': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
@@ -20,19 +20,19 @@ module.exports = {
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/upload':{
-	  		target: 'http://192.168.1.146:9999',    //源地址 
+	  		target: 'http://111.231.111.161:9999',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
-	  	'/static':{
-	  		target: 'http://192.168.1.146',    //源地址 
+	  	'/technology-share':{
+	  		target: 'http://111.231.111.161',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	}
     },
 
     // Various Dev Server settings
-    host: '192.168.1.146', // can be overwritten by process.env.HOST
+    host: '192.168.1.161', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-

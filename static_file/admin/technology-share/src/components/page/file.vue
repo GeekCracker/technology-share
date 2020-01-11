@@ -11,12 +11,13 @@
 			<el-header>
 				<el-row>
 					<span style="float: right;">
+						<el-button type="danger" @click="deleteBatch"  round>批量删除</el-button>
 						<el-button type="primary" @click="dialogVisible = true;dlgTitle='上传文件';"  round>上传文件</el-button>
 					</span>
 				</el-row>
 			</el-header>
 			<el-main>
-				<el-table v-loading="loading" :data="tableData" :highlight-current-row="true" border >
+				<el-table v-loading="loading" :data="tableData" @selection-change="rowSelect" @select-all="selectAll" :highlight-current-row="true" border >
 					<el-table-column type="selection" width="55">
 					</el-table-column>
 					<el-table-column label="序号" width="80" align="center">
@@ -93,6 +94,7 @@
 				tableData:[],
 				pageData:{},
 				queryParam:{},
+				selections: [],
 				loading:false,
 				preViewImageVisible:false,
 				preViewVideoVisible:false,
@@ -144,6 +146,87 @@
 					}
 				});
 			},
+			deleteOne(id){
+				//根据ID删除文件
+				var vm = this;
+				vm.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning',
+					beforeClose: function(action, instance, done) {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							instance.confirmButtonText = '执行中...';
+							vm.done = done;
+							vm.instance = instance;
+							vm.ts.doPost(vm, '/admin/fileInfo/deleteById', {
+								id: id
+							}, null, function(vm, data) {
+								if (data.data.code == 200) {
+									vm.reQuery();
+									vm.instance.confirmButtonLoading = false;
+									vm.done();
+								}
+							});
+						} else {
+							done();
+						}
+					}
+				}).then(() => {
+					this.$message({
+						type: 'success',
+						message: '删除成功!'
+					});
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			},
+			deleteBatch: function() {
+				var selections = this.selections;
+				if (!selections || selections.length == 0) {
+					this.$message('请选择需要删除的文件');
+					return;
+				}
+				//根据ID删除文件
+				var vm = this;
+				vm.$confirm('此操作将删除所有选中的文件, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning',
+					beforeClose: function(action, instance, done) {
+						if (action === 'confirm') {
+							instance.confirmButtonLoading = true;
+							instance.confirmButtonText = '执行中...';
+							vm.done = done;
+							vm.instance = instance;
+							vm.ts.doPost(vm, '/admin/fileInfo/deleteBatchById', {
+								deleteList: JSON.stringify(selections)
+							}, null, function(vm, data) {
+								if (data.data.code == 200) {
+									vm.reQuery();
+									vm.instance.confirmButtonLoading = false;
+									vm.done();
+								}
+							});
+						} else {
+							done();
+						}
+					}
+				}).then(() => {
+					this.$message({
+						type: 'success',
+						message: '删除成功!'
+					});
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			},
 			preView(scope){
 				if(/(png|jpg|jpeg|gif)$/.test(scope.row.ext)){
 					this.preViewTitle="图片预览";
@@ -174,6 +257,21 @@
 				var vdo = document.getElementById("videoPlayerContainer_html5_api");
 				vdo.pause();
 				done();
+			},
+			selectAll: function(selection) {
+				//selection是选中行的数组
+				this.selections = $.map(selection, function(item, index) {
+					return {
+						id: item.id
+					};
+				});
+			},
+			rowSelect: function(selection) {
+				this.selections = $.map(selection, function(item, index) {
+					return {
+						id: item.id
+					};
+				});
 			}
 		},
 		mounted:function(){
