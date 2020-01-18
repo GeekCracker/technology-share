@@ -26,7 +26,7 @@ public class VRoleServiceImpl extends BaseServiceImpl<VRoleMapper, VRole> implem
     private List<Permission> permissionTree(VRole vRole){
         List<Permission> permissions = vRole.getPermissionTree();
         if(permissions != null && !permissions.isEmpty()){
-            List<Permission> topPermission = permissions.stream().filter(item->item.getParentIdRow()==null||item.getParentIdRow()==0).collect(Collectors.toList());
+            List<Permission> topPermission = permissions.stream().filter(item->item.getParentIdRaw()==null||item.getParentIdRaw()==0).collect(Collectors.toList());
             if(!topPermission.isEmpty()){
                 deep(topPermission,permissions);
             }else {
@@ -40,7 +40,7 @@ public class VRoleServiceImpl extends BaseServiceImpl<VRoleMapper, VRole> implem
 
     private void deep(List<Permission> treeList,List<Permission> all){
         for(Permission permission : treeList){
-            List<Permission> children = all.stream().filter(item->permission.getIdRaw().equals(item.getParentIdRow())).collect(Collectors.toList());
+            List<Permission> children = all.stream().filter(item->permission.getIdRaw().equals(item.getParentIdRaw())).collect(Collectors.toList());
             if(!children.isEmpty()){
                 all.removeAll(children);
                 deep(children,all);

@@ -1,4 +1,4 @@
-package com.technology.share.admin.controller;
+package com.technology.share.front.controller;
 
 
 import com.alibaba.fastjson.JSONArray;

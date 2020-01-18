@@ -44,7 +44,7 @@
     </profiles>
 
     <build>
-        <finalName>technology-share</finalName>
+        <finalName>technology-share-admin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

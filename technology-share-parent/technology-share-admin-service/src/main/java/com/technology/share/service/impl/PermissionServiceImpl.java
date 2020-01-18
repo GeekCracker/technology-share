@@ -20,8 +20,8 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByAsc("permission_sort");
         List<Permission> all = this.list(queryWrapper);
-        if(!all.isEmpty()){
-            List<Permission> top = all.stream().filter(item->item.getParentIdRow() ==null || item.getParentIdRow()==0).collect(Collectors.toList());
+        if(all != null && !all.isEmpty()){
+            List<Permission> top = all.stream().filter(item->item.getParentIdRaw() ==null || item.getParentIdRaw()==0).collect(Collectors.toList());
             deep(top,all);
             return top;
         }else {
@@ -30,7 +30,7 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
     }
     private void deep(List<Permission> treeList,List<Permission> all){
         for(Permission permission : treeList){
-            List<Permission> children = all.stream().filter(item->permission.getIdRaw().equals(item.getParentIdRow())).collect(Collectors.toList());
+            List<Permission> children = all.stream().filter(item->permission.getIdRaw().equals(item.getParentIdRaw())).collect(Collectors.toList());
             if(!children.isEmpty()){
                 all.removeAll(children);
                 deep(children,all);

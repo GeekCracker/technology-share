@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.handler.IdTypeHandler;
 
 import java.util.List;
@@ -40,7 +41,8 @@ public class Permission extends BaseEntity {
     private String parentId;
 
     @TableField(value = "parent_id")
-    private Long parentIdRow;
+    @JsonIgnore
+    private Long parentIdRaw;
 
     @TableField(exist = false)
     private List<Permission> children;
@@ -107,8 +109,8 @@ public class Permission extends BaseEntity {
     }
 
     public String getParentId() {
-        if(parentIdRow != null && parentIdRow > 0){
-            return IdTypeHandler.encode(parentIdRow);
+        if(parentIdRaw != null && parentIdRaw > 0){
+            return IdTypeHandler.encode(parentIdRaw);
         }
         return parentId;
     }
@@ -117,15 +119,15 @@ public class Permission extends BaseEntity {
         this.parentId = parentId;
     }
 
-    public Long getParentIdRow() {
+    public Long getParentIdRaw() {
         if(parentId !=null && !"".equals(parentId)){
             return IdTypeHandler.decode(parentId);
         }
-        return parentIdRow;
+        return parentIdRaw;
     }
 
-    public void setParentIdRow(Long parentIdRow) {
-        this.parentIdRow = parentIdRow;
+    public void setParentIdRaw(Long parentIdRaw) {
+        this.parentIdRaw = parentIdRaw;
     }
 
     public List<Permission> getChildren() {
