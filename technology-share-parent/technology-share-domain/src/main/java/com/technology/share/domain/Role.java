@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 /**
  * 角色实体类
  */
 @TableName("t_role")
+@Data
 public class Role extends BaseEntity {
 
     /**角色名称*/
@@ -25,36 +27,4 @@ public class Role extends BaseEntity {
     @TableLogic(value = "0",delval = "1")
     @TableField(fill = FieldFill.INSERT)
     private Boolean deleted;
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Boolean getRoleStatus() {
-        return roleStatus;
-    }
-
-    public void setRoleStatus(Boolean roleStatus) {
-        this.roleStatus = roleStatus;
-    }
-
-    public String getpIds() {
-        return pIds;
-    }
-
-    public void setpIds(String pIds) {
-        this.pIds = pIds;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
 }

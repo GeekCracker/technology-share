@@ -206,6 +206,7 @@
 				var keys = this.$refs.tree.getCheckedKeys();
 				formData.pIds = JSON.stringify(keys);
 				var vm = this;
+				vm['form'] = form;
 				this.$refs[form].validate((valid) => {
 					if (valid) {
 						vm.ts.doPost(vm, '/admin/role/save', formData, null, function(vm, data) {
@@ -213,6 +214,7 @@
 							if (data.data.code == 200) {
 								vm.reQuery();
 								vm.dialogVisible = false;
+								vm.resetForm(vm.form);
 								type = 'success';
 							} else {
 								type = 'error';

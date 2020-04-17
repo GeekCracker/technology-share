@@ -5,12 +5,14 @@ import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.service.RoleService;
 import com.technology.share.service.VRoleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("AdminRoleController")
 @RequestMapping("/admin/role")
+@Api(tags = "角色管理")
 public class RoleController extends BaseController<Role, RoleService> {
 
     @Autowired

@@ -24,7 +24,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     @Override
     public boolean saveOrUpdate(Role entity) {
         super.saveOrUpdate(entity);
-        String pIds = entity.getpIds();
+        String pIds = entity.getPIds();
         if(StringUtils.isNotBlank(pIds)){
             //删除角色原有权限
             UpdateWrapper<RolePermission> updateWrapper = new UpdateWrapper<>();

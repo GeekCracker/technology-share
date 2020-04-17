@@ -26,9 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin/user")
 public class UserController extends BaseController<User,UserService> {
 
-
-    @Autowired
-    private UserService userService;
     @Autowired
     private VUserService vUserService;
     @Autowired
@@ -61,7 +58,7 @@ public class UserController extends BaseController<User,UserService> {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name",username);
         queryWrapper.eq("user_password", MD5Utils.encode(password));
-        User user = getService().getOne(queryWrapper);
+        User user = service.getOne(queryWrapper);
         if(user == null){
             throw new BizException(CodeMessage.USERNAME_PASSWORD_IS_ERROR);
         }
@@ -77,9 +74,9 @@ public class UserController extends BaseController<User,UserService> {
      */
     @RequestMapping("resetPassword")
     public ResponseResult resetPassword(String id){
-        User user = getService().getById(id);
+        User user = service.getById(id);
         user.setUserPassword(MD5Utils.encode("123456"));
-        getService().updateById(user);
+        service.updateById(user);
         return ResponseResult.ok();
     }
 
@@ -90,7 +87,7 @@ public class UserController extends BaseController<User,UserService> {
      */
     @RequestMapping("enableDisable")
     public ResponseResult enableDisable(String id){
-        userService.enableDisable(IdTypeHandler.decode(id));
+        service.enableDisable(IdTypeHandler.decode(id));
         return ResponseResult.ok();
     }
 

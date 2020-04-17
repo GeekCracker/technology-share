@@ -2,13 +2,17 @@ package com.technology.share.response;
 
 import com.technology.share.enums.CodeMessage;
 
-public class ResponseResult {
+import java.io.Serializable;
+
+public class ResponseResult implements Serializable {
 
     private Integer code;
 
     private String msg;
 
     private Object data;
+
+    public ResponseResult(){super();};
 
     public ResponseResult(Integer code, String msg) {
         this.code = code;

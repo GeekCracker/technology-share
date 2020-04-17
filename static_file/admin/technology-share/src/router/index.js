@@ -8,6 +8,7 @@ import Role from '@/components/page/role'
 import User from '@/components/page/user'
 import Type from '@/components/page/type'
 import File from '@/components/page/file'
+import Database from '@/components/page/database'
 import Redis from '@/components/page/redis'
 import Icon from '@/components/page/icon'
 import Css from '@/components/page/css'
@@ -17,6 +18,7 @@ import Label from '@/components/page/label'
 
 
 import Article from '@/components/page/article'
+import SQL from '@/components/page/sql'
 
 
 
@@ -55,6 +57,11 @@ export default new Router({
         	   component: File
            },
            {
+           		path: 'database',
+           		name: 'Database',
+           		component: Database
+           },
+           {
         	   path: 'redis',
         	   name: 'Redis',
         	   component: Redis
@@ -83,6 +90,11 @@ export default new Router({
         	   path: 'article',
         	   name: 'article',
         	   component: Article
+           },
+           {
+           	 path: 'sql',
+           	 name: 'sql',
+           	 component: SQL
            }
       ]
     },

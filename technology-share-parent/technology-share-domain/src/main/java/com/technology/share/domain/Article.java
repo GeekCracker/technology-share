@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.handler.IdTypeHandler;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  * 文章实体类
  */
 @TableName("t_article")
+@Data
 public class Article extends BaseEntity {
 
     /**标题*/
@@ -47,14 +49,6 @@ public class Article extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getTypeId() {
         if(typeIdRaw != null && typeIdRaw > 0){
            return IdTypeHandler.encode(typeIdRaw);
@@ -62,66 +56,10 @@ public class Article extends BaseEntity {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
-    }
-
     public Long getTypeIdRaw() {
         if(typeId != null && !"".equals(typeId)){
             return IdTypeHandler.decode(typeId);
         }
         return typeIdRaw;
-    }
-
-    public void setTypeIdRaw(Long typeIdRaw) {
-        this.typeIdRaw = typeIdRaw;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public Boolean getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
-
-    public Boolean getTopTen() {
-        return topTen;
-    }
-
-    public void setTopTen(Boolean topTen) {
-        this.topTen = topTen;
-    }
-
-    public Date getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
     }
 }

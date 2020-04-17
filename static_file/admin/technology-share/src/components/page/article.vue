@@ -52,19 +52,22 @@
 					<el-table-column label="文章状态" width="80" align="center">
 						<!-- 0:草稿 1:发布 -->
 						<template slot-scope="scope">
-							{{scope.row.status}}
+							<span v-if="scope.row.status == 1">发布</span>
+							<span v-else>草稿</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="是否启用" width="80" align="center">
 						<!-- 0:禁用 1:启用 -->
 						<template slot-scope="scope">
-							{{scope.row.enable}}
+							<span v-if="scope.row.enable">启用</span>
+							<span v-else>禁用</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="是否前十条" width="100" align="center">
 						<!-- 0:不是 1:是 -->
 						<template slot-scope="scope">
-							{{scope.row.topTen}}
+							<span v-if="scope.row.topTen">是</span>
+							<span v-else>否</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="发布时间" width="160" align="center">
@@ -79,6 +82,7 @@
 					</el-table-column>
 					<el-table-column prop="option" label="操作" width="auto" align="center">
 						<template slot-scope="scope">
+							<el-button type="success" icon="el-icon-position" title="发布" circle></el-button>
 							<el-button type="primary" icon="el-icon-info" title="详情" circle></el-button>
 							<el-button type="warning" @click="dialogVisible=true;dlgTitle='修改文章';init(scope)" icon="el-icon-edit" title="修改" circle></el-button>
 							<el-button type="danger" @click="deleteOne(scope.row.id);" icon="el-icon-delete" title="删除" circle></el-button>
@@ -107,17 +111,26 @@
 							</el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item label="文章状态" prop="status">
-						<!-- 0:草稿1:发布 -->
-						<el-input type="text" v-model="article.status"></el-input>
-					</el-form-item>
+					<!--0:草稿1:发布--> 
+					<!--<el-form-item label="文章状态" prop="status">
+						<el-select style="width:202px;" v-model="article.status" clearable @clear="statusClear" placeholder="请选择">
+							<el-option label="草稿" :value="0"></el-option>
+							<el-option label="发布" :value="1"></el-option>
+						</el-select>
+					</el-form-item>-->
 					<el-form-item label="是否启用" prop="enable">
-						<!-- 0:禁用1:启用 -->
-						<el-input type="text" v-model="article.enable"></el-input>
+						<!-- 0:否1:是 -->
+						<el-radio-group v-model="article.enable">
+							<el-radio  :label="true" border="true">是</el-radio>
+							<el-radio  :label="false"  border="true">否</el-radio>
+						</el-radio-group>
 					</el-form-item>
-					<el-form-item label="是否前十条" prop="topTen">
-						<!-- 0:禁用1:启用 -->
-						<el-input type="text" v-model="article.topTen"></el-input>
+					<el-form-item label="前十条" prop="topTen">
+						<!-- 0:否1:是 -->
+						<el-radio-group v-model="article.topTen">
+							<el-radio  :label="true" border="true">是</el-radio>
+							<el-radio  :label="false"  border="true">否</el-radio>
+						</el-radio-group>
 					</el-form-item>
 					<el-form-item label="文章内容" prop="content">
 						<ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
@@ -167,6 +180,11 @@
 						required: true,
 						message: '请输入文章标题',
 						trigger: 'blur'
+					}],
+					author: [{
+						required: true,
+						message: '请输入文章作者',
+						trigger: 'blur'
 					}]
 				},
 				dialogVisible: false,
@@ -196,6 +214,7 @@
 				var vm = this;
 				vm.ts.doPost(vm, '/admin/article/queryPageData', queryParam, null, function(vm, data) {
 					if (data.data.code == 200) {
+						console.log(data.data);
 						vm.pageData = data.data.data;
 						vm.tableData = $.map(data.data.data.records, function(item, index) {
 							return {
@@ -251,7 +270,7 @@
 				if(scope){
 					this.article = scope.row;
 					this.typeOption.value = scope.row.typeId;
-					this.typeOption.label = scope.row.typeName;
+					this.typeOption.label = scope.row.typeName;					
 					if(!this.article.content){
 						this.article.content = "";
 					}
@@ -283,6 +302,9 @@
 					label:''
 				}
 				this.article.typeId = '';
+			},
+			statusClear:function(){
+				
 			},
 			submitForm: function(form) {
 				var formData = this.article;

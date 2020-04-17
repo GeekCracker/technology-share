@@ -8,6 +8,7 @@ import com.technology.share.domain.view.VExtCss;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.service.ExtCssService;
 import com.technology.share.service.VExtCssService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController("AdminExtCssController")
 @RequestMapping("/admin/ext/css")
+@Api(tags = "扩展CSS管理")
 public class ExtCssController extends BaseController<ExtCss, ExtCssService> {
 
     @Autowired

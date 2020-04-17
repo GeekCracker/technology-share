@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
+import lombok.Data;
 
 /**
  * 类别视图
  */
 @TableName("v_type")
+@Data
 public class VType extends BaseEntity {
 
     /**类别名称*/
@@ -40,26 +42,10 @@ public class VType extends BaseEntity {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
     public Long getParentIdRaw() {
         if(parentId != null && !"".equals(parentId)){
             return IdTypeHandler.decode(parentId);
         }
         return parentIdRaw;
-    }
-
-    public void setParentIdRaw(Long parentIdRaw) {
-        this.parentIdRaw = parentIdRaw;
-    }
-
-    public String getParentTypeName() {
-        return parentTypeName;
-    }
-
-    public void setParentTypeName(String parentTypeName) {
-        this.parentTypeName = parentTypeName;
     }
 }

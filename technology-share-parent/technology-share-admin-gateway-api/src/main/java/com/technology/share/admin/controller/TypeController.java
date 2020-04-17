@@ -23,8 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 public class TypeController extends BaseController<Type, TypeService> {
 
     @Autowired
-    private TypeService typeService;
-    @Autowired
     private VTypeService vTypeService;
 
     @Override
@@ -36,6 +34,6 @@ public class TypeController extends BaseController<Type, TypeService> {
 
     @RequestMapping("typeTree")
     public ResponseResult typeTree(){
-        return ResponseResult.ok(typeService.typeTree());
+        return ResponseResult.ok(service.typeTree());
     }
 }

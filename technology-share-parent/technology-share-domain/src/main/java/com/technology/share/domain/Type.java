@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.handler.IdTypeHandler;
+import lombok.Data;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * 类别实体类
  */
 @TableName("t_type")
+@Data
 public class Type extends BaseEntity {
 
     /**类别名称*/
@@ -43,26 +45,10 @@ public class Type extends BaseEntity {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
     public Long getParentIdRaw() {
         if(parentId != null && !"".equals(parentId)){
             return IdTypeHandler.decode(parentId);
         }
         return parentIdRaw;
-    }
-
-    public void setParentIdRaw(Long parentIdRaw) {
-        this.parentIdRaw = parentIdRaw;
-    }
-
-    public List<Type> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Type> children) {
-        this.children = children;
     }
 }

@@ -18,12 +18,13 @@
     <properties>
         <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
         <mysql.connector.version>5.1.44</mysql.connector.version>
-        <mybatis.plus.version>3.3.0</mybatis.plus.version>
+        <mybatis.plus.version>3.3.1</mybatis.plus.version>
         <sharding.jdbc.version>4.0.0-RC2</sharding.jdbc.version>
         <fastjson.version>1.2.62</fastjson.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <thumbnailator>0.4.8</thumbnailator>
         <jedis.version>3.0.1</jedis.version>
+        <knife4j.version>2.0.2</knife4j.version>
     </properties>
 
     <dependencyManagement>
@@ -69,9 +70,21 @@
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <modules>
         <module>technology-share-front-boot</module>
         <module>technology-share-admin-boot</module>

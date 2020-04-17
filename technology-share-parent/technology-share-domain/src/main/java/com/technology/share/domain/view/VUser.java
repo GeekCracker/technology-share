@@ -7,8 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
+import lombok.Data;
 
 @TableName(value = "v_user")
+@Data
 public class VUser extends BaseEntity {
 
     /**用户名*/
@@ -45,46 +47,6 @@ public class VUser extends BaseEntity {
     @TableField(fill = FieldFill.INSERT)
     private Boolean deleted;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
-
-    public String getUserHead() {
-        return userHead;
-    }
-
-    public void setUserHead(String userHead) {
-        this.userHead = userHead;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
     public String getRoleId() {
         if(roleIdRaw != null && roleIdRaw > 0) {
             return IdTypeHandler.encode(roleIdRaw);
@@ -92,42 +54,10 @@ public class VUser extends BaseEntity {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
     public Long getRoleIdRaw() {
         if(roleId != null && !"".equals(roleId)){
             return IdTypeHandler.decode(roleId);
         }
         return roleIdRaw;
-    }
-
-    public void setRoleIdRaw(Long roleIdRaw) {
-        this.roleIdRaw = roleIdRaw;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Boolean getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Boolean userStatus) {
-        this.userStatus = userStatus;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
     }
 }

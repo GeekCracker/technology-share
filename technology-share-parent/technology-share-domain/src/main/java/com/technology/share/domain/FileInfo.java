@@ -1,11 +1,13 @@
 package com.technology.share.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 /**
  * 文件信息
  */
 @TableName("t_file_info")
+@Data
 public class FileInfo extends BaseEntity {
 
     /**原始文件名称*/
@@ -34,76 +36,4 @@ public class FileInfo extends BaseEntity {
 
     /**占用次数*/
     private Integer useCount;
-
-    public String getOriginalName() {
-        return originalName;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
-    }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public String getMd5() {
-        return md5;
-    }
-
-    public void setMd5(String md5) {
-        this.md5 = md5;
-    }
-
-    public String getSmallUri() {
-        return smallUri;
-    }
-
-    public void setSmallUri(String smallUri) {
-        this.smallUri = smallUri;
-    }
-
-    public String getBigUri() {
-        return bigUri;
-    }
-
-    public void setBigUri(String bigUri) {
-        this.bigUri = bigUri;
-    }
-
-    public String getExt() {
-        return ext;
-    }
-
-    public void setExt(String ext) {
-        this.ext = ext;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Integer getUseCount() {
-        return useCount;
-    }
-
-    public void setUseCount(Integer useCount) {
-        this.useCount = useCount;
-    }
 }

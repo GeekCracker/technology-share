@@ -7,17 +7,17 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
+import com.technology.share.service.BaseService;
 import com.technology.share.utils.GenericsUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -25,16 +25,11 @@ import java.util.*;
 /**
  * BaseController
  */
-public abstract class BaseController<T extends BaseEntity,S extends IService>{
+public abstract class BaseController<T extends BaseEntity,S extends BaseService<T>>{
 
+    /**当前Service*/
     @Autowired
-    protected ConfigurableApplicationContext applicationContext;
-
-    /**
-     * 获取当前Service
-     * @return 返回当前Service
-     */
-    protected IService<T> getService(){return (IService<T>)applicationContext.getBean(GenericsUtils.getSuperClassGenricType(this.getClass(),1));}
+    protected S service;
 
     /**当前实体类class对象*/
     protected Class<T> entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());
@@ -46,7 +41,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("save")
     public ResponseResult save(T entity){
-        return ResponseResult.ok(getService().saveOrUpdate(entity));
+        return ResponseResult.ok(service.saveOrUpdate(entity));
     }
     /**
      * 根据ID查询
@@ -55,7 +50,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("queryById")
     public ResponseResult queryById(String id){
-        return ResponseResult.ok(getService().getById(IdTypeHandler.decode(id)));
+        return ResponseResult.ok(service.getById(IdTypeHandler.decode(id)));
     }
 
     /**
@@ -65,7 +60,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("deleteById")
     public ResponseResult deleteById(String id){
-        return ResponseResult.ok(getService().removeById(IdTypeHandler.decode(id)));
+        return ResponseResult.ok(service.removeById(IdTypeHandler.decode(id)));
     }
 
     /**
@@ -81,7 +76,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
             Map<String,Object> map = (Map<String, Object>) obj;
             list.add(IdTypeHandler.decode(String.valueOf(map.get("id"))));
         }
-        return ResponseResult.ok(getService().removeByIds(list));
+        return ResponseResult.ok(service.removeByIds(list));
     }
 
 
@@ -92,7 +87,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("queryData")
     public ResponseResult queryData(HttpServletRequest request){
-        return ResponseResult.ok(getService().list(getQueryWrapper(request)));
+        return ResponseResult.ok(service.list(getQueryWrapper(request)));
     }
 
 
@@ -105,7 +100,7 @@ public abstract class BaseController<T extends BaseEntity,S extends IService>{
      */
     @RequestMapping("queryPageData")
     public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum,@RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request){
-        return ResponseResult.ok(getService().page(new Page<T>(pageNum,pageSize).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
+        return ResponseResult.ok(service.page(new Page<T>(pageNum,pageSize).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
     }
 
     /**

@@ -8,6 +8,7 @@ import com.technology.share.domain.view.VExtJs;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.service.ExtJsService;
 import com.technology.share.service.VExtJsService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController("AdminExtJsController")
 @RequestMapping("/admin/ext/js")
+@Api(tags = "扩展JS管理")
 public class ExtJsController extends BaseController<ExtJs,ExtJsService> {
 
     @Autowired

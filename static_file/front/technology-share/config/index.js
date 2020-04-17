@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/front': {
-    		target: 'http://192.168.1.161:10000',
+    		target: 'http://localhost:10001',
     		changeOrigin: true
     	},
     	'/technology-share': {
@@ -22,8 +22,8 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '192.168.1.161', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: '192.168.1.137', // can be overwritten by process.env.HOST
+    port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
