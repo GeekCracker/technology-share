@@ -1,5 +1,6 @@
 package com.technology.share.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -20,6 +21,10 @@ public class Sql extends BaseEntity {
 
     /**描述信息*/
     private String description;
+
+    /**角色ID列表*/
+    @TableField(exist = false)
+    private String roleIds;
 
     /**是否启用*/
     private Boolean enable;

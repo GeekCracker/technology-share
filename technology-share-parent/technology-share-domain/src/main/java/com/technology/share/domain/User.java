@@ -9,6 +9,8 @@ import com.technology.share.domain.view.VRole;
 import com.technology.share.handler.IdTypeHandler;
 import lombok.Data;
 
+import java.util.Date;
+
 @TableName("t_user")
 @Data
 public class User extends BaseEntity {
@@ -40,6 +42,9 @@ public class User extends BaseEntity {
     /**角色*/
     @TableField(exist = false)
     private VRole role;
+
+    /**最后登录时间*/
+    private Date lastLoginTime;
 
     /**用户启用状态*/
     private Boolean userStatus;

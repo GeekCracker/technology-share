@@ -9,6 +9,8 @@ import com.technology.share.domain.BaseEntity;
 import com.technology.share.handler.IdTypeHandler;
 import lombok.Data;
 
+import java.util.Date;
+
 @TableName(value = "v_user")
 @Data
 public class VUser extends BaseEntity {
@@ -41,6 +43,8 @@ public class VUser extends BaseEntity {
 
     /**用户启用状态*/
     private Boolean userStatus;
+
+    private Date lastLoginTime;
 
     /**是否删除(0:不删除1:删除)(添加时自动填充，且默认为不删除状态)*/
     @TableLogic(value = "0",delval = "1")

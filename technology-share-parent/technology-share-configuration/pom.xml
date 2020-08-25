@@ -28,6 +28,10 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>spring-boot-starter-ahas-sentinel-client</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

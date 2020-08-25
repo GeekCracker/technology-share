@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @RestController("AdminUserController")
 @RequestMapping("/admin/user")
@@ -64,6 +65,8 @@ public class UserController extends BaseController<User,UserService> {
         }
         VRole role= vRoleService.getById(user.getRoleIdRaw());
         user.setRole(role);
+        user.setLastLoginTime(new Date());//最后登录时间
+        service.updateById(user);
         return ResponseResult.ok(user);
     }
 
@@ -102,6 +105,6 @@ public class UserController extends BaseController<User,UserService> {
     @RequestMapping("queryPageData")
     public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum, @RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request) {
         QueryWrapper<VUser> queryWrapper = new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),VUser.class));
-        return ResponseResult.ok(vUserService.page(new Page<VUser>(pageNum,pageSize),queryWrapper));
+        return ResponseResult.ok(vUserService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 }

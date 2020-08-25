@@ -57,7 +57,7 @@ Vue.prototype.ts = ts
 Vue.use(ElementUI)
 //使用axios实例对象
 Vue.use(VueAxios, instance)
-Vue.use(CKEditor)
+Vue.use(CKEditor)//富文本编辑器
 Vue.use(vUploader, uploaderConfig);
 Vue.use(vPlayBack)
 
