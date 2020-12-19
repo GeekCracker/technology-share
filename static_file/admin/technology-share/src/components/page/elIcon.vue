@@ -8,7 +8,7 @@
 			</el-row>
 		</el-header>
 		<ul class="icon-list" @click="click($event)">
-			<li v-for="item in icons">
+			<li v-for="item in icons" :key="item.id">
 				<span>
 					<i :class="item.iconClass"></i>
 					<span class="icon-name">{{item.iconClass}}</span>

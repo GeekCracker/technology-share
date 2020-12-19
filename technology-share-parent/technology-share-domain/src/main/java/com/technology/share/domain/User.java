@@ -11,14 +11,15 @@ import lombok.Data;
 
 import java.util.Date;
 
-@TableName("t_user")
 @Data
+@TableName("t_user")
 public class User extends BaseEntity {
 
     /**用户名*/
     private String userName;
 
     /**用户密码*/
+    @JsonIgnore
     private String userPassword;
 
     /**年龄*/

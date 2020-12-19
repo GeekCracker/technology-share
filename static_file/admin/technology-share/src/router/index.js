@@ -19,6 +19,8 @@ import Label from '@/components/page/label'
 
 import Article from '@/components/page/article'
 import SQL from '@/components/page/sql'
+import YpDelUser from '@/components/page/YpDelUser'
+import YpEquipmentError from '@/components/page/YpEquipmentError'
 
 
 
@@ -95,7 +97,17 @@ export default new Router({
            	 path: 'sql',
            	 name: 'sql',
            	 component: SQL
-           }
+		   },
+		   {
+			   path: 'YpDelUser',
+			   name: 'YpDelUser',
+			   component: YpDelUser
+		   },
+		   {
+			path: 'YpEquipmentError',
+			name: 'YpEquipmentError',
+			component: YpEquipmentError
+		}
       ]
     },
     {

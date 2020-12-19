@@ -46,6 +46,10 @@ public class ResponseResult implements Serializable {
         return new ResponseResult(codeMessage.getCode(),codeMessage.getMessage(),data);
     }
 
+    public static ResponseResult fail(String msg){
+        return new ResponseResult(CodeMessage.UNKNOWN.getCode(),msg);
+    }
+
     public Integer getCode() {
         return code;
     }

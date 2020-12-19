@@ -2,6 +2,7 @@ package com.technology.share.service.impl;
 
 import com.technology.share.domain.view.VSql;
 import com.technology.share.mapper.VSqlMapper;
+import com.technology.share.service.VSqlService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Service;
  * @time: 2020/4/18 13:02
  */
 @Service
-public class VSqlServiceImpl extends BaseServiceImpl<VSqlMapper, VSql> {
+public class VSqlServiceImpl extends BaseServiceImpl<VSqlMapper, VSql> implements VSqlService {
 }

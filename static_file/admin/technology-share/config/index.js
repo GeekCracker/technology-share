@@ -12,25 +12,29 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/admin': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    target: 'http://localhost:5555',    //源地址 
+		    target: 'http://111.231.111.161:5555',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/api': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    target: 'http://localhost:5555',    //源地址 
+		    target: 'http://111.231.111.161:5555',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/upload':{
-	  		target: 'http://localhost:5555',    //源地址 
+	  		target: 'http://111.231.111.161:5555',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/technology-share':{
-	  		target: 'http://localhost',    //源地址 
+	  		target: 'http://111.231.111.161',    //源地址 
 		    changeOrigin: true    //改变源 
-	  	}
+      },
+      '/yp-admin':{
+        target: 'http://admin.grpu.com.cn',
+        changeOrigin: true    //改变源 
+      }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '10.10.0.96', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

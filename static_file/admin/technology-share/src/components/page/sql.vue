@@ -20,17 +20,27 @@
 			<el-container>
 				<el-aside style="width: auto;">
 					<el-table v-loading="loading" :data="tableData" :highlight-current-row="true" border style="width: 100%;">
-						<el-table-column label="序号" width="100" align="center">
+						<el-table-column label="序号" width="60" align="center">
 							<template slot-scope="scope">
 								{{scope.row.index}}
 							</template>
 						</el-table-column>
-						<el-table-column label="名称" width="200" align="center">
+						<el-table-column label="名称" width="150" align="center">
 							<template slot-scope="scope">
 								{{scope.row.name}}
 							</template>
 						</el-table-column>
-						<el-table-column label="描述" width="250" align="center">
+						<el-table-column label="所属数据库" width="150" align="center">
+							<template slot-scope="scope">
+								{{scope.row.databaseName}}
+							</template>
+						</el-table-column>
+						<el-table-column label="拥有角色" width="150" align="center">
+							<template slot-scope="scope">
+								{{scope.row.roleNames}}
+							</template>
+						</el-table-column>
+						<el-table-column label="描述" width="200" align="center">
 							<template slot-scope="scope">
 								{{scope.row.description}}
 							</template>
@@ -43,7 +53,7 @@
 						</el-table-column>
 						<el-table-column prop="option" label="操作" width="250" align="center">
 							<template slot-scope="scope">
-								<el-button type="success" icon="ali el-icon-zhixing" title="执行SQL" circle></el-button>
+								<el-button type="success" icon="ali el-icon-zhixing" @click="doProcess(scope.row)" title="执行SQL" circle></el-button>
 								<el-button type="primary" icon="el-icon-info" @click="dialogVisible = true;dlgTitle='SQL语句详情';init(scope);" title="详情" circle></el-button>
 								<el-button type="warning" icon="el-icon-edit" @click="dialogVisible = true;dlgTitle='修改SQL语句';init(scope);" title="修改" circle></el-button>
 								<el-button type="danger" icon="el-icon-delete" @click="deleteOne(scope.row.id)" title="删除" circle></el-button>
@@ -52,9 +62,9 @@
 					</el-table>
 				</el-aside>
 				<el-main>
-					<el-input type="textarea" rows="15" style="overflow-y:visible;" resize="none" disabled></el-input>
-					<i style="margin-left: 0px;">执行结果：</i>
-					<el-input type="textarea" rows="15" style="overflow-y:visible;" resize="none" disabled></el-input>
+					<el-input type="textarea" v-model="doProcessSQL" class="processSQL" rows="15" style="overflow-y:visible;" resize="none" disabled></el-input>
+					<i style="margin-left: 0px;">执行结果：&emsp;&emsp;&emsp;(耗时：<i>{{processTime|toFixed}}</i>秒)</i>
+					<el-input type="textarea" v-model="doProcessResult" rows="15" style="overflow-y:visible;" resize="none" disabled></el-input>
 				</el-main>
 			</el-container>			
 			<el-dialog :title="dlgTitle" :visible.sync="dialogVisible" width="40%">
@@ -68,6 +78,12 @@
 					<el-form-item label="拥有角色" prop="roleIds">
 						<el-select v-model="sql.roleIds" style="width:202px;" multiple placeholder="请选择">
 							<el-option v-for="item in roles" :key="item.id" :label="item.roleName" :value="item.id">
+							</el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="所属数据库" prop="databaseId">
+						<el-select v-model="sql.databaseId" style="width:202px;" placeholder="请选择">
+							<el-option v-for="item in databases" :key="item.id" :label="item.name" :value="item.id">
 							</el-option>
 						</el-select>
 					</el-form-item>
@@ -99,7 +115,7 @@
 						</el-header>
 						<el-main>
 							<el-select v-model="sql.enable" style="width:202px;" placeholder="请选择">
-								<el-option v-for="item in databases" :key="item.id" :label="item.label" :value="item.id">
+								<el-option v-for="item in databases" :key="item.id" :label="item.name" :value="item.id">
 								</el-option>
 							</el-select>
 						</el-main>
@@ -115,7 +131,7 @@
 						</el-header>
 						<el-main>
 							<el-select v-model="sql.enable" style="width:202px;" placeholder="请选择">
-								<el-option v-for="item in databases" :key="item.id" :label="item.label" :value="item.id">
+								<el-option v-for="item in databases" :key="item.id" :label="item.name" :value="item.id">
 								</el-option>
 							</el-select>
 						</el-main>
@@ -147,6 +163,9 @@
 				sql: {},
 				formData: {},
 				queryParam: {},
+				doProcessSQL: "",
+				doProcessResult: "",
+				processTime: 0,
 				options: [{
 					value: 1,
 					label: '启用'
@@ -190,6 +209,8 @@
 								index: (index + 1),
 								id: item.id,
 								name: item.name,
+								databaseName: item.databaseName,
+								roleNames: item.roleNames,
 								description: item.description,
 								sqlStatement: item.sqlStatement,
 								roleIds: item.roleIds,
@@ -221,6 +242,13 @@
 				this.ts.doPost(this, '/admin/role/queryData', null, null, function(vm, data) {
 					if (data.data.code == 200) {
 						vm.roles = data.data.data;
+					}
+				});
+			},
+			queryDatabase(){
+				this.ts.doPost(this, '/admin/database/queryData',null,null,function(vm,data){
+					if(data.data.code == 200){
+						vm.databases = data.data.data;
 					}
 				});
 			},
@@ -295,15 +323,23 @@
 						message: '已取消删除'
 					});
 				});
+			},
+			doProcess(row){
+				//执行SQL语句
+				this.doProcessSQL = row.sqlStatement;
+
 			}
 		},
 		mounted: function() {
 			this.reQuery();
 			this.queryRole();
+			this.queryDatabase();
 		}
 
 	}
 </script>
 <style scoped>
-
+	.el-textarea.is-disabled >>> .el-textarea__inner{
+		color: green;
+	}
 </style>
