@@ -114,6 +114,11 @@ export default new Router({
     	path:'/',
     	name:'登录',
     	component:Login
+	},
+	{
+    	path:'/ligao',
+    	name:'登录',
+    	component:ligaoLogin
     }
   ]
 })

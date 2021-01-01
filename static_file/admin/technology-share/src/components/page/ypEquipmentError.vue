@@ -4,28 +4,38 @@
 			<el-breadcrumb separator-class="el-icon-arrow-right">
 				<el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
 				<el-breadcrumb-item>基础配置</el-breadcrumb-item>
-				<el-breadcrumb-item>柚浦智能-新增失败设备列表</el-breadcrumb-item>
+				<el-breadcrumb-item>柚浦智能-设备列表</el-breadcrumb-item>
 			</el-breadcrumb>
 		</el-header>
 		<el-container>
 			<el-header>
 				<el-row>
-					<span style="float: left;">
-					<el-input style="width: 70%" v-model="queryParam.uniqueNumber" placeholder="请输入设备唯一编号" ></el-input>
-					<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
+					<span style="float: left;width: 25%">
+						<el-input v-model="queryParam.uniqueNumber" placeholder="请输入设备唯一编号" ></el-input>
+                    </span>
+					<span style="float: left;width: 25%">
+						<el-input v-model="queryParam.activeCode" placeholder="请输入设备激活码" ></el-input>
+                    </span>
+					<span style="float: left;width: 10%">
+						<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
                     </span>
 				</el-row>
 			</el-header>
 			<el-main>
 				<el-table v-loading="loading" :data="tableData" :highlight-current-row="true" border style="width: 100%;">
-					<el-table-column label="序号" width="80" align="center">
+					<el-table-column label="序号" width="60" align="center">
 						<template slot-scope="scope">
 							{{scope.row.index}}
 						</template>
 					</el-table-column>
-					<el-table-column label="小区名称" width="200" align="center">
+					<el-table-column label="小区名称" width="160" align="center">
 						<template slot-scope="scope">
 							{{scope.row.communityName}}
+						</template>
+					</el-table-column>
+					<el-table-column label="设备布控位置" width="140" align="center">
+						<template slot-scope="scope">
+							{{scope.row.memo}}
 						</template>
 					</el-table-column>
                     <el-table-column label="设备唯一编号" width="260" align="center">
@@ -33,14 +43,24 @@
 							{{scope.row.uniqueNumber}}
 						</template>
 					</el-table-column>
-                    <el-table-column label="设备布控位置" width="140" align="center">
+					<el-table-column label="设备激活码" width="280" align="center">
 						<template slot-scope="scope">
-							{{scope.row.memo}}
+							{{scope.row.activeCode}}
 						</template>
 					</el-table-column>
-                    <el-table-column label="厂商" width="140" align="center">
+                    <el-table-column label="厂商" width="100" align="center">
 						<template slot-scope="scope">
 							{{scope.row.source|source}}
+						</template>
+					</el-table-column>
+					<el-table-column label="同步状态" width="80" align="center">
+						<template slot-scope="scope">
+							{{scope.row.syncStatus|status}}
+						</template>
+					</el-table-column>
+					<el-table-column label="添加时间" width="160" align="center">
+						<template slot-scope="scope">
+							{{scope.row.createdTime|dateFormat}}
 						</template>
 					</el-table-column>
 					<el-table-column prop="option" label="操作" width="auto" align="center">
@@ -182,9 +202,11 @@
                 if(status){
                     switch(status){
                         case 1:
-                            return '成功';
+							return '同步成功';
+						case 0:
+							return '同步中';
                         case -1:
-                            return '失败';
+                            return '同步失败';
                     }
                 }
             }   
@@ -205,8 +227,11 @@
 								id: item.id,
 								communityName: item.communityName,
 								uniqueNumber: item.uniqueNumber,
+								activeCode: item.activeCode,
 								memo: item.memo,
-                                source: item.source
+								source: item.source,
+								syncStatus: item.syncStatus,
+								createdTime: item.createdTime
                                 
 							}
 						});

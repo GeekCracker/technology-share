@@ -11,12 +11,12 @@
 			<el-header>
 				<el-row>
 					<span style="float: left;">
-					<el-input style="width: 60%" v-model="queryParam.userName" placeholder="请输入用户名称" ></el-input>
-					<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
-				</span>
+						<el-input style="width: 60%" v-model="queryParam.userName" placeholder="请输入用户名称" ></el-input>
+						<el-button type="primary" icon="iconfont el-iconchaxun" @click="reQuery()" round>查询</el-button>
+					</span>
 					<span style="float: right;">
-					<el-button type="primary" @click="dialogVisible=true;dlgTitle='添加用户';resetForm('userForm');" round>添加</el-button>
-				</span>
+						<el-button type="primary" @click="dialogVisible=true;dlgTitle='添加用户';resetForm('userForm');" round>添加</el-button>
+					</span>
 				</el-row>
 			</el-header>
 			<el-main>
