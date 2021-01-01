@@ -21,104 +21,105 @@ import Article from '@/components/page/article'
 import SQL from '@/components/page/sql'
 import YpDelUser from '@/components/page/YpDelUser'
 import YpEquipmentError from '@/components/page/YpEquipmentError'
+import YpDataStatistics from '@/components/page/YpDataStatistics'
 
 
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-      children:[
-           {
-        	   path:'permission',
-        	   name: 'Permission',
-        	   component: Permission
-           },
-           {
-        	   path:'role',
-        	   name: 'Role',
-        	   component: Role
-           },
-           {
-        	   path: 'user',
-        	   name: 'User',
-        	   component: User
-           },
-           {
-        	   path: 'type',
-        	   name: 'Type',
-        	   component: Type
-           },
-           {
-        	   path: 'file',
-        	   name: 'File',
-        	   component: File
-           },
-           {
-           		path: 'database',
-           		name: 'Database',
-           		component: Database
-           },
-           {
-        	   path: 'redis',
-        	   name: 'Redis',
-        	   component: Redis
-           },
-           {
-        	   path: 'icon',
-        	   name: 'Icon',
-        	   component: Icon
-           },
-           {
-        	   path: 'css',
-        	   name: 'Css',
-        	   component: Css
-           },
-           {
-        	   path: 'js',
-        	   name: 'Js',
-        	   component: Js
-           },
-           {
-        	   path: 'label',
-        	   name: 'Label',
-        	   component: Label
-           },
-           {
-        	   path: 'article',
-        	   name: 'article',
-        	   component: Article
-           },
-           {
-           	 path: 'sql',
-           	 name: 'sql',
-           	 component: SQL
-		   },
-		   {
-			   path: 'YpDelUser',
-			   name: 'YpDelUser',
-			   component: YpDelUser
-		   },
-		   {
-			path: 'YpEquipmentError',
-			name: 'YpEquipmentError',
-			component: YpEquipmentError
+	routes: [
+		{
+			path: '/home',
+			name: 'Home',
+			component: Home,
+			children: [
+				{
+					path: 'permission',
+					name: 'Permission',
+					component: Permission
+				},
+				{
+					path: 'role',
+					name: 'Role',
+					component: Role
+				},
+				{
+					path: 'user',
+					name: 'User',
+					component: User
+				},
+				{
+					path: 'type',
+					name: 'Type',
+					component: Type
+				},
+				{
+					path: 'file',
+					name: 'File',
+					component: File
+				},
+				{
+					path: 'database',
+					name: 'Database',
+					component: Database
+				},
+				{
+					path: 'redis',
+					name: 'Redis',
+					component: Redis
+				},
+				{
+					path: 'icon',
+					name: 'Icon',
+					component: Icon
+				},
+				{
+					path: 'css',
+					name: 'Css',
+					component: Css
+				},
+				{
+					path: 'js',
+					name: 'Js',
+					component: Js
+				},
+				{
+					path: 'label',
+					name: 'Label',
+					component: Label
+				},
+				{
+					path: 'article',
+					name: 'article',
+					component: Article
+				},
+				{
+					path: 'sql',
+					name: 'sql',
+					component: SQL
+				},
+				{
+					path: 'YpDelUser',
+					name: 'YpDelUser',
+					component: YpDelUser
+				},
+				{
+					path: 'YpEquipmentError',
+					name: 'YpEquipmentError',
+					component: YpEquipmentError
+				},
+				{
+					path: 'YpDataStatistics',
+					name: 'YpDataStatistics',
+					component: YpDataStatistics
+				}
+			]
+		},
+		{
+			path: '/',
+			name: '登录',
+			component: Login
 		}
-      ]
-    },
-    {
-    	path:'/',
-    	name:'登录',
-    	component:Login
-	},
-	{
-    	path:'/ligao',
-    	name:'登录',
-    	component:ligaoLogin
-    }
-  ]
+	]
 })

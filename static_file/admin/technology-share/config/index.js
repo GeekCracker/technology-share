@@ -28,7 +28,8 @@ module.exports = {
 		    changeOrigin: true    //改变源 
       },
       '/yp-admin':{
-        target: 'http://admin.grpu.com.cn',
+        //target: 'http://admin.grpu.com.cn',
+        target: 'http://localhost:8083',
         changeOrigin: true    //改变源 
       }
     },
