@@ -283,9 +283,7 @@
 		mounted:function(){
 			this.reQuery();
 		}
-		
 	}
-	
 </script>
 <style scoped>
 	
