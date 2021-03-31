@@ -3,7 +3,7 @@
 		<el-header>
 			<el-breadcrumb separator-class="el-icon-arrow-right">
 				<el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-				<el-breadcrumb-item>基础配置</el-breadcrumb-item>
+				<el-breadcrumb-item>通用模块</el-breadcrumb-item>
 				<el-breadcrumb-item>柚浦智能-设备列表</el-breadcrumb-item>
 			</el-breadcrumb>
 		</el-header>

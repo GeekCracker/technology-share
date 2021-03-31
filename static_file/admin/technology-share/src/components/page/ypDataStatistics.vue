@@ -3,7 +3,7 @@
     <el-header>
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>基础配置</el-breadcrumb-item>
+        <el-breadcrumb-item>通用模块</el-breadcrumb-item>
         <el-breadcrumb-item>柚浦智能-每日数据统计</el-breadcrumb-item>
       </el-breadcrumb>
     </el-header>
@@ -77,7 +77,7 @@
         <el-main
           style="margin: 5px; background-color: #e5f6ff; min-height: 800px"
         >
-            <el-table v-loading="loading" :data="applyInfos" :highlight-current-row="true" border style="width: 100%;">
+            <el-table v-loading="loading" :data="applyInfos" :highlight-current-row="true" border style="width: 100%;" max-height="810">
                 <el-table-column label="ID" width="70" prop="id" align="center" :sortable="true">
                     <template slot-scope="scope">
                         {{scope.row.id}}
@@ -150,7 +150,9 @@ export default {
     },
     dataStatisticsGoldGetSum(time){
         var vm = this;
-        vm.ts.doPost(vm, '/yp-admin/dataStatisticsGoldGetSum', {date:time}, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
+        var queryParam = {};
+        queryParam.date = time;
+        vm.ts.doPost(vm, '/yp-admin/dataStatisticsGoldGetSum', queryParam, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
             if (data.data.code == 200) {
                 vm.goldGetSum = data.data.data;
             }
@@ -158,7 +160,9 @@ export default {
     },
     dataStatisticsGoldGetUserCount(time){
         var vm = this;
-        vm.ts.doPost(vm, '/yp-admin/dataStatisticsGoldGetUserCount', {date:time}, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
+        var queryParam = {};
+        queryParam.date = time;
+        vm.ts.doPost(vm, '/yp-admin/dataStatisticsGoldGetUserCount', queryParam, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
             if (data.data.code == 200) {
                 vm.getUserCount = data.data.data;
             }
@@ -166,7 +170,9 @@ export default {
     },
     dataStatisticsProductTradeSum(time){
         var vm = this;
-        vm.ts.doPost(vm, '/yp-admin/dataStatisticsProductTradeSum', {date:time}, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
+        var queryParam = {};
+        queryParam = time;
+        vm.ts.doPost(vm, '/yp-admin/dataStatisticsProductTradeSum', queryParam, {"headers":{"Content-Type":"application/json"}}, function(vm, data) {
             if (data.data.code == 200) {
                 vm.productTradeSum = data.data.data;
             }

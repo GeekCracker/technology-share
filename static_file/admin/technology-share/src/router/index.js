@@ -19,9 +19,10 @@ import Label from '@/components/page/label'
 
 import Article from '@/components/page/article'
 import SQL from '@/components/page/sql'
-import YpDelUser from '@/components/page/YpDelUser'
-import YpEquipmentError from '@/components/page/YpEquipmentError'
-import YpDataStatistics from '@/components/page/YpDataStatistics'
+import YpDelUser from '@/components/page/ypDelUser'
+import YpEquipmentError from '@/components/page/ypEquipmentError'
+import YpDataStatistics from '@/components/page/ypDataStatistics'
+import YpVersionControl from '@/components/page/ypVersionControl'
 
 
 
@@ -100,19 +101,24 @@ export default new Router({
 					component: SQL
 				},
 				{
-					path: 'YpDelUser',
+					path: 'ypDelUser',
 					name: 'YpDelUser',
 					component: YpDelUser
 				},
 				{
-					path: 'YpEquipmentError',
+					path: 'ypEquipmentError',
 					name: 'YpEquipmentError',
 					component: YpEquipmentError
 				},
 				{
-					path: 'YpDataStatistics',
+					path: 'ypDataStatistics',
 					name: 'YpDataStatistics',
 					component: YpDataStatistics
+				},
+				{
+					path: 'ypVersionControl',
+					name: 'YpVersionControl',
+					component: YpVersionControl
 				}
 			]
 		},
