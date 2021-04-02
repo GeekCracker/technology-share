@@ -15,6 +15,7 @@ import com.technology.share.utils.GenericsUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,7 +41,7 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
      * @return 返回操作信息
      */
     @PostMapping("save")
-    public ResponseResult save(T entity){
+    public ResponseResult save(@RequestBody T entity){
         return ResponseResult.ok(service.saveOrUpdate(entity));
     }
     /**

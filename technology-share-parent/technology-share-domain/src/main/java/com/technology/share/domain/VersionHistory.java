@@ -25,9 +25,17 @@ public class VersionHistory extends BaseEntity{
     @TableField("download_path")
     private String downloadPath;
 
-    /**部署项目路径*/
+    /**部署项目路径(项目包文件的父级目录)*/
     @TableField("publish_path")
     private String publishPath;
+
+    /**项目包文件名*/
+    @TableField("file_name")
+    private String fileName;
+
+    /**shell脚本*/
+    @TableField("shell")
+    private String shell;
 
     /**版本更新内容描述*/
     @TableField("memo")
