@@ -22,7 +22,7 @@
 		"@ckeditor/ckeditor5-build-decoupled-document": "^16.0.0",
 		"@ckeditor/ckeditor5-easy-image": "^16.0.0",
 		"@ckeditor/ckeditor5-heading": "^16.0.0",
-		"@ckeditor/ckeditor5-image": "^16.0.0",
+		"@ckeditor/ckeditor5-image": "^27.0.0",
 		"@ckeditor/ckeditor5-link": "^16.0.0",
 		"@ckeditor/ckeditor5-list": "^16.0.0",
 		"@ckeditor/ckeditor5-paragraph": "^16.0.0",
