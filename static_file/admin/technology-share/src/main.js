@@ -25,21 +25,21 @@ import vPlayBack from 'v-playback'//视频预览插件
 let instance = axios.create({
   timeout: 6000,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json'
   }
 })
 
 // 请求拦截器，将Request Payload请求数据格式 ，转换为FormData格式
-instance.interceptors.request.use(
-  config => {
-	var url = config.url;
-	if(!url.startsWith("/yp-admin")){
-		config.data = qs.stringify(config.data) // 转为formdata数据格式
-	}
-    return config
-  },
-  error => Promise.error(error)
-)
+// instance.interceptors.request.use(
+//   config => {
+// 	var url = config.url;
+// 	if(!url.startsWith("/yp-admin")){
+// 		config.data = qs.stringify(config.data) // 转为formdata数据格式
+// 	}
+//     return config
+//   },
+//   error => Promise.error(error)
+// )
 
 // v-uploader plugin global config
 const uploaderConfig = {

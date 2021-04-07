@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/admin': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    // target: 'http://111.231.111.161:5555',    //源地址 
+		    //target: 'http://111.231.111.161:5555',    //源地址 
 		    target: 'http://localhost:5555',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},

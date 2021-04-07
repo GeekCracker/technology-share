@@ -9,9 +9,9 @@ import com.technology.share.response.ResponseResult;
 import com.technology.share.service.DatabaseService;
 import com.technology.share.service.VDatabaseService;
 import io.swagger.annotations.Api;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +30,8 @@ public class DatabaseController extends BaseController<Database, DatabaseService
     private VDatabaseService vDatabaseService;
 
     @Override
-    @RequestMapping("queryPageData")
-    public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum,@RequestParam(defaultValue = "15") Long pageSize, HttpServletRequest request) {
-        QueryWrapper<VDatabase> queryWrapper = new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),VDatabase.class));
-        return ResponseResult.ok(vDatabaseService.page(new Page<>(pageNum,pageSize),queryWrapper));
+    public ResponseResult queryPageData( HttpServletRequest request) {
+        QueryWrapper<VDatabase> queryWrapper = getQueryWrapper(request,VDatabase.class);
+        return ResponseResult.ok(vDatabaseService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
     }
 }

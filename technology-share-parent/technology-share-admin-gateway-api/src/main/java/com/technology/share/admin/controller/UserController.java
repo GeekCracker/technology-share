@@ -1,6 +1,5 @@
 package com.technology.share.admin.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.User;
@@ -17,7 +16,6 @@ import com.technology.share.utils.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,15 +94,12 @@ public class UserController extends BaseController<User,UserService> {
 
     /**
      * 查询数据列表（带分页）
-     * @param pageNum 当前页
-     * @param pageSize 每页显示数据条数
      * @param request 传入request请求
      * @return 返回分页数据
      */
     @Override
-    @RequestMapping("queryPageData")
-    public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum, @RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request) {
-        QueryWrapper<VUser> queryWrapper = new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),VUser.class));
-        return ResponseResult.ok(vUserService.page(new Page<>(pageNum,pageSize),queryWrapper));
+    public ResponseResult queryPageData(HttpServletRequest request) {
+        QueryWrapper<VUser> queryWrapper = getQueryWrapper(request,VUser.class);
+        return ResponseResult.ok(vUserService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
     }
 }

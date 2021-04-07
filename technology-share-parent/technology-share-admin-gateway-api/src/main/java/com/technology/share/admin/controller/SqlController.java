@@ -1,6 +1,5 @@
 package com.technology.share.admin.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.Sql;
@@ -11,7 +10,6 @@ import com.technology.share.service.VSqlService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +29,9 @@ public class SqlController extends BaseController<Sql, SqlService> {
     private VSqlService vSqlService;
 
     @Override
-    @RequestMapping("queryPageData")
-    public ResponseResult queryPageData(@RequestParam(value = "pageNum",defaultValue = "1")Long pageNum, @RequestParam(value = "pageSize",defaultValue = "10")Long pageSize, HttpServletRequest request) {
-        QueryWrapper<VSql> queryWrapper = new QueryWrapper<>(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)), VSql.class));
-        return ResponseResult.ok(vSqlService.page(new Page<>(pageNum,pageSize),queryWrapper));
+    public ResponseResult queryPageData(HttpServletRequest request) {
+        QueryWrapper<VSql> queryWrapper = getQueryWrapper(request,VSql.class);
+        return ResponseResult.ok(vSqlService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
     }
 
     /**

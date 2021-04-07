@@ -3,7 +3,6 @@ package com.technology.share.admin.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -17,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.io.BufferedReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -94,14 +95,12 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
 
     /**
      * 查询数据列表（带分页）
-     * @param pageNum 当前页
-     * @param pageSize 每页显示数据条数
      * @param request 传入request请求
      * @return 返回分页数据
      */
-    @RequestMapping("queryPageData")
-    public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum,@RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request){
-        return ResponseResult.ok(service.page(new Page<T>(pageNum,pageSize).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
+    @PostMapping("queryPageData")
+    public ResponseResult queryPageData(HttpServletRequest request){
+        return ResponseResult.ok(service.page(getPage(request).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
     }
 
     /**
@@ -109,8 +108,48 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
      * @param request 传入request请求
      * @return 返回请求条件
      */
-    protected Wrapper<T> getQueryWrapper(HttpServletRequest request){
-        return new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),this.entityClass));
+    protected QueryWrapper<T> getQueryWrapper(HttpServletRequest request){
+        return new QueryWrapper(getQueryParam(request).toJavaObject(this.entityClass));
+    }
+
+    protected <V> QueryWrapper<V> getQueryWrapper(HttpServletRequest request,Class<V> clazz){
+        return new QueryWrapper<>(getQueryParam(request).toJavaObject(clazz));
+    }
+
+    /**
+     * 获取分页对象
+     * @param request 传入request请求
+     * @return 返回分页请求对象
+     */
+    protected Page<T> getPage(HttpServletRequest request){
+        JSONObject queryParams = getQueryParam(request);
+        Long pageNum = queryParams.getLong("pageNum");
+        Long pageSize = queryParams.getLong("pageSize");
+        pageNum = pageNum != null ? pageNum : 1L;
+        pageSize = pageSize != null ? pageSize : 10L;
+        return new Page<>(pageNum,pageSize);
+    }
+
+    /**
+     * 获取当前页码
+     * @param request 传入请求参数
+     * @return 返回当前页码
+     */
+    protected Long getPageNum(HttpServletRequest request){
+        JSONObject queryParams = getQueryParam(request);
+        Long pageNum = queryParams.getLong("pageNum");
+        return pageNum != null ? pageNum : 1L;
+    }
+
+    /**
+     * 获取当前每页显示条数
+     * @param request 传入请求参数
+     * @return 返回每页显示条数
+     */
+    protected Long getPageSize(HttpServletRequest request){
+        JSONObject queryParams = getQueryParam(request);
+        Long pageSize = queryParams.getLong("pageSize");
+        return pageSize != null ? pageSize : 10L;
     }
 
     /**
@@ -118,17 +157,17 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
      * @param request 传入request请求
      * @return 返回请求条件
      */
-    protected Map<String,Object> getQueryParam(HttpServletRequest request){
+    protected JSONObject getQueryParam(HttpServletRequest request){
         //组装查询条件
-        Map<String,Object> map = new LinkedHashMap<>();
-        Enumeration<String> parameterNames = request.getParameterNames();
-        while(parameterNames.hasMoreElements()){
-            String paramName = parameterNames.nextElement();
-            String value = request.getParameter(paramName);
-            if(StringUtils.isNotBlank(value)){
-                map.put(paramName,value);
+        String str, wholeStr = "";
+        try {
+            BufferedReader br = request.getReader();
+            while((str = br.readLine()) != null){
+                wholeStr += str;
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return map;
+        return JSONObject.parseObject(wholeStr);
     }
 }

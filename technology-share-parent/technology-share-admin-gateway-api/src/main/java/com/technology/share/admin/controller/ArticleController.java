@@ -9,10 +9,9 @@ import com.technology.share.response.ResponseResult;
 import com.technology.share.service.ArticleService;
 import com.technology.share.service.VArticleService;
 import io.swagger.annotations.Api;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +28,9 @@ public class ArticleController extends BaseController<Article,ArticleService> {
     private VArticleService vArticleService;
 
     @Override
-    @PostMapping("queryPageData")
-    public ResponseResult queryPageData(@RequestParam(defaultValue = "1") Long pageNum, @RequestParam(defaultValue = "10") Long pageSize, HttpServletRequest request) {
-        QueryWrapper<VArticle> queryWrapper = new QueryWrapper(JSONObject.parseObject(JSONObject.toJSONString(getQueryParam(request)),VArticle.class));
+    public ResponseResult queryPageData(HttpServletRequest request) {
+        QueryWrapper<VArticle> queryWrapper = getQueryWrapper(request,VArticle.class);
         queryWrapper.orderByDesc("publish_time");
-        return ResponseResult.ok(vArticleService.page(new Page<>(pageNum,pageSize),queryWrapper));
+        return ResponseResult.ok(vArticleService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
     }
 }
