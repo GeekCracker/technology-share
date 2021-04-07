@@ -168,6 +168,10 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
         }catch (Exception e){
             e.printStackTrace();
         }
-        return JSONObject.parseObject(wholeStr);
+        JSONObject queryParam = JSONObject.parseObject(wholeStr);
+        if(queryParam == null){
+            queryParam = new JSONObject();
+        }
+        return queryParam;
     }
 }
