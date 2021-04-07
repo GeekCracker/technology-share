@@ -11,6 +11,7 @@ import com.technology.share.handler.IdTypeHandler;
 import com.technology.share.response.ResponseResult;
 import com.technology.share.service.BaseService;
 import com.technology.share.utils.GenericsUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import java.util.Map;
 /**
  * BaseController
  */
+@Slf4j
 public abstract class BaseController<T extends BaseEntity,S extends BaseService<T>>{
 
     /**当前Service*/
@@ -169,6 +171,7 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
             e.printStackTrace();
         }
         JSONObject queryParam = JSONObject.parseObject(wholeStr);
+        log.info(queryParam.toJSONString());
         if(queryParam == null){
             queryParam = new JSONObject();
         }
