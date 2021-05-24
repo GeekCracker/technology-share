@@ -171,10 +171,10 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
             e.printStackTrace();
         }
         JSONObject queryParam = JSONObject.parseObject(wholeStr);
-        log.info(queryParam.toJSONString());
         if(queryParam == null){
             queryParam = new JSONObject();
         }
+        log.info(queryParam.toJSONString());
         return queryParam;
     }
 }
