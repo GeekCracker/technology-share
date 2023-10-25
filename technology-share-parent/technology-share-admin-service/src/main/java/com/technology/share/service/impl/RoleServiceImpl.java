@@ -24,16 +24,15 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     @Override
     public boolean saveOrUpdate(Role entity) {
         super.saveOrUpdate(entity);
-        String pIds = entity.getPIds();
-        if(StringUtils.isNotBlank(pIds)){
+        List<String> pIds = entity.getPermissionIds();
+        if(pIds != null && !pIds.isEmpty()){
             //删除角色原有权限
             UpdateWrapper<RolePermission> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("role_id",entity.getIdRaw());
             rolePermissionService.remove(updateWrapper);
             //添加权限
-            List<String> list = JSONObject.parseArray(pIds,String.class);
             List<RolePermission> rolePermissions = new LinkedList<>();
-            for(String pId : list){
+            for(String pId : pIds){
                 RolePermission rolePermission = new RolePermission();
                 rolePermission.setRoleId(entity.getIdRaw());
                 rolePermission.setPermissionId(IdTypeHandler.decode(pId));

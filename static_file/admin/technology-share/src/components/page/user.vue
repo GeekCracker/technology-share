@@ -49,9 +49,9 @@
 							<span v-if="!scope.row.userStatus">禁用</span>
 						</template>
 					</el-table-column>
-					<el-table-column label="最后登录时间" width="120" align="center">
+					<el-table-column label="最后登录时间" width="180" align="center">
 						<template slot-scope="scope">
-							{{scope.row.lastLoginTime}}
+							{{scope.row.lastLoginTime|dateFormat}}
 						</template>
 					</el-table-column>
 					<el-table-column label="创建人" width="100" align="center">
@@ -59,9 +59,9 @@
 							{{scope.row.createBy}}
 						</template>
 					</el-table-column>
-					<el-table-column label="创建时间" width="120" align="center">
+					<el-table-column label="创建时间" width="180" align="center">
 						<template slot-scope="scope">
-							{{scope.row.createTime}}
+							{{scope.row.createTime|dateFormat}}
 						</template>
 					</el-table-column>
 
@@ -184,6 +184,8 @@
 								userPhone: item.userPhone,
 								userStatus: item.userStatus,
 								lastLoginTime: item.lastLoginTime,
+								createBy: item.createBy,
+								createTime: item.createTime,
 								roleName: item.roleName
 							}
 						});
@@ -202,7 +204,7 @@
 			},
 			enableDisable: function(scope) {
 				scope.row.userStatus = !scope.row.userStatus;
-				this.ts.doPost(this, '/admin/user/enableDisable', {
+				this.ts.doGet(this, '/admin/user/enableDisable', {
 					id: scope.row.id
 				}, null, function(vm, data) {
 					var type = '';

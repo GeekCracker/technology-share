@@ -12,16 +12,16 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	'/admin': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    //target: 'http://111.231.111.161:5555',    //源地址 
-		    target: 'http://localhost:5555',    //源地址 
+		    //target: 'http://111.231.111.161:6666',    //源地址 
+		    target: 'http://localhost:6666',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/api': {  //使用"/api"来代替"http://  你的地址（http://127.0.0.1:3000）" 
-		    target: 'http://111.231.111.161:5555',    //源地址 
+		    target: 'http://111.231.111.161:6666',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/upload':{
-	  		target: 'http://111.231.111.161:5555',    //源地址 
+	  		target: 'http://111.231.111.161:6666',    //源地址 
 		    changeOrigin: true    //改变源 
 	  	},
 	  	'/technology-share':{
@@ -36,7 +36,7 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '192.168.1.81', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
@@ -72,7 +72,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'technology-share/admin',
     assetsPublicPath: '/',
 
     /**

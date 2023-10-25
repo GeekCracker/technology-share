@@ -95,7 +95,7 @@
 				role: {
 					roleName: '',
 					roleStatus: true,
-					pIds: ''
+					permissionIds: ''
 				},
 				roleForm: {},
 				rules: {
@@ -160,7 +160,7 @@
 							instance.confirmButtonText = '执行中...';
 							vm.done = done;
 							vm.instance = instance;
-							vm.ts.doPost(vm, '/admin/role/deleteById', {
+							vm.ts.doGet(vm, '/admin/role/deleteById', {
 								id: id
 							}, null, function(vm, data) {
 								if (data.data.code == 200) {
@@ -188,7 +188,7 @@
 			init(data) {
 				this.role = data.row;
 				//选择权限树
-				this.ts.doPost(this, '/admin/role/queryById', {
+				this.ts.doGet(this, '/admin/role/queryById', {
 					id: data.row.id
 				}, null, function(vm, data) {
 					if (data.data.code == 200) {
@@ -204,7 +204,7 @@
 			submitForm(form) {
 				var formData = this.role;
 				var keys = this.$refs.tree.getCheckedKeys();
-				formData.pIds = JSON.stringify(keys);
+				formData.permissionIds = keys;//JSON.stringify(keys);
 				var vm = this;
 				vm['form'] = form;
 				this.$refs[form].validate((valid) => {

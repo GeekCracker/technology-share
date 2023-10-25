@@ -1,5 +1,6 @@
 package com.technology.share.admin.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.User;
@@ -99,7 +100,8 @@ public class UserController extends BaseController<User,UserService> {
      */
     @Override
     public ResponseResult queryPageData(HttpServletRequest request) {
-        QueryWrapper<VUser> queryWrapper = getQueryWrapper(request,VUser.class);
-        return ResponseResult.ok(vUserService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
+        JSONObject queryParams = getQueryParam(request);
+        QueryWrapper<VUser> queryWrapper = getQueryWrapper(queryParams,VUser.class);
+        return ResponseResult.ok(vUserService.page(new Page<>(getPageNum(queryParams),getPageSize(queryParams)),queryWrapper));
     }
 }

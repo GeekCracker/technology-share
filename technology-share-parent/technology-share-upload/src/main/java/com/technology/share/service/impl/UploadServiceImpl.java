@@ -13,15 +13,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.UUID;
 
 @Service
 public class UploadServiceImpl extends ServiceImpl<UploadMapper,FileInfo> implements UploadService {
 
-    @Autowired
+    @Resource
     private UploadMapper uploadMapper;
-    @Autowired
+    @Resource
     private UploadConfig uploadConfig;
 
     @Override

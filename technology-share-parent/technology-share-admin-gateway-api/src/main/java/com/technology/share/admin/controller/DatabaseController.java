@@ -9,7 +9,6 @@ import com.technology.share.response.ResponseResult;
 import com.technology.share.service.DatabaseService;
 import com.technology.share.service.VDatabaseService;
 import io.swagger.annotations.Api;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +30,8 @@ public class DatabaseController extends BaseController<Database, DatabaseService
 
     @Override
     public ResponseResult queryPageData( HttpServletRequest request) {
-        QueryWrapper<VDatabase> queryWrapper = getQueryWrapper(request,VDatabase.class);
-        return ResponseResult.ok(vDatabaseService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
+        JSONObject queryParams = getQueryParam(request);
+        QueryWrapper<VDatabase> queryWrapper = getQueryWrapper(queryParams,VDatabase.class);
+        return ResponseResult.ok(vDatabaseService.page(new Page<>(getPageNum(queryParams),getPageSize(queryParams)), queryWrapper));
     }
 }

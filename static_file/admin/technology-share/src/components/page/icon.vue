@@ -183,7 +183,7 @@
 							instance.confirmButtonText = '执行中...';
 							vm.done = done;
 							vm.instance = instance;
-							vm.ts.doPost(vm, '/admin/icon/deleteById', {
+							vm.ts.doGet(vm, '/admin/icon/deleteById', {
 								id: id
 							}, null, function(vm, data) {
 								if (data.data.code == 200) {

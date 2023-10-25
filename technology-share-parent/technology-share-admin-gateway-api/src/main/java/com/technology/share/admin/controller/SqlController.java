@@ -1,5 +1,6 @@
 package com.technology.share.admin.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.Sql;
@@ -30,8 +31,9 @@ public class SqlController extends BaseController<Sql, SqlService> {
 
     @Override
     public ResponseResult queryPageData(HttpServletRequest request) {
-        QueryWrapper<VSql> queryWrapper = getQueryWrapper(request,VSql.class);
-        return ResponseResult.ok(vSqlService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
+        JSONObject queryParams = getQueryParam(request);
+        QueryWrapper<VSql> queryWrapper = getQueryWrapper(queryParams,VSql.class);
+        return ResponseResult.ok(vSqlService.page(new Page<>(getPageNum(queryParams),getPageSize(queryParams)),queryWrapper));
     }
 
     /**

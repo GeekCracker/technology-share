@@ -1,5 +1,6 @@
 package com.technology.share.admin.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.ExtJs;
@@ -32,7 +33,8 @@ public class ExtJsController extends BaseController<ExtJs,ExtJsService> {
      */
     @Override
     public ResponseResult queryPageData(HttpServletRequest request) {
-        QueryWrapper<VExtJs> queryWrapper = getQueryWrapper(request, VExtJs.class);
-        return ResponseResult.ok(vExtJsService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
+        JSONObject queryParams = getQueryParam(request);
+        QueryWrapper<VExtJs> queryWrapper = getQueryWrapper(queryParams, VExtJs.class);
+        return ResponseResult.ok(vExtJsService.page(new Page<>(getPageNum(queryParams),getPageSize(queryParams)), queryWrapper));
     }
 }

@@ -66,8 +66,8 @@
 	}
 	li span{
 		display: inline-block;
-		width: 101px;
-		height: 101px;
+		width: 110px;
+		height: 110px;
 		font-size: 14px;
 	}
 	li span i{

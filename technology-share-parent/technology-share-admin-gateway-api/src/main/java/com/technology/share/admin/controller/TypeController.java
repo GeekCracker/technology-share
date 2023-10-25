@@ -1,5 +1,6 @@
 package com.technology.share.admin.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.technology.share.domain.Type;
@@ -25,9 +26,10 @@ public class TypeController extends BaseController<Type, TypeService> {
 
     @Override
     public ResponseResult queryPageData(HttpServletRequest request) {
-        QueryWrapper<VType> queryWrapper = getQueryWrapper(request,VType.class);
+        JSONObject queryParams = getQueryParam(request);
+        QueryWrapper<VType> queryWrapper = getQueryWrapper(queryParams, VType.class);
         queryWrapper.orderByDesc("create_time");
-        return ResponseResult.ok(vTypeService.page(new Page<>(getPageNum(request),getPageSize(request)),queryWrapper));
+        return ResponseResult.ok(vTypeService.page(new Page<>(getPageNum(queryParams),getPageSize(queryParams)),queryWrapper));
     }
 
     @RequestMapping("typeTree")

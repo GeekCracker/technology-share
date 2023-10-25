@@ -22,27 +22,27 @@
 							{{scope.row.index}}
 						</template>
 					</el-table-column>
-					<el-table-column label="链接名称" width="150" align="center">
+					<el-table-column label="链接名称" width="120" align="center">
 						<template slot-scope="scope">
 							{{scope.row.name}}
 						</template>
 					</el-table-column>
-					<el-table-column label="链接地址" width="450" align="center">
+					<el-table-column label="链接地址" width="350" align="center">
 						<template slot-scope="scope">
 							{{scope.row.url}}
 						</template>
 					</el-table-column>
-					<el-table-column label="登录用户名" width="250" align="center">
+					<el-table-column label="登录用户名" width="100" align="center">
 						<template slot-scope="scope">
 							{{scope.row.username}}
 						</template>
 					</el-table-column>
-					<el-table-column label="登陆密码" width="250" align="center">
+					<el-table-column label="登陆密码" width="200" align="center">
 						<template slot-scope="scope">
 							{{scope.row.password}}
 						</template>
 					</el-table-column>
-					<el-table-column label="描述信息" width="300" align="center">
+					<el-table-column label="描述信息" width="200" align="center">
 						<template slot-scope="scope">
 							{{scope.row.description}}
 						</template>

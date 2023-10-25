@@ -171,7 +171,7 @@
 					permissionName:'',
 					parentId:'',
 					pageNum:'',
-					pageSize:''
+					pageSize: null
 				},
 				rules: {
 					permissionName: [{

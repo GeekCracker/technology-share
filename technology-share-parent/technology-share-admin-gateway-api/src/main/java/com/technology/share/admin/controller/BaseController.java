@@ -12,7 +12,6 @@ import com.technology.share.response.ResponseResult;
 import com.technology.share.service.BaseService;
 import com.technology.share.utils.GenericsUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,7 +90,7 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
      */
     @RequestMapping("queryData")
     public ResponseResult queryData(HttpServletRequest request){
-        return ResponseResult.ok(service.list(getQueryWrapper(request)));
+        return ResponseResult.ok(service.list(getQueryWrapper(getQueryParam(request))));
     }
 
 
@@ -102,29 +101,29 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
      */
     @PostMapping("queryPageData")
     public ResponseResult queryPageData(HttpServletRequest request){
-        return ResponseResult.ok(service.page(getPage(request).addOrder(OrderItem.desc("create_time")),getQueryWrapper(request)));
+        JSONObject queryParam = getQueryParam(request);
+        return ResponseResult.ok(service.page(getPage(queryParam).addOrder(OrderItem.desc("create_time")),getQueryWrapper(queryParam)));
     }
 
     /**
      * 根据请求获取请求条件
-     * @param request 传入request请求
+     * @param queryParams 查询条件
      * @return 返回请求条件
      */
-    protected QueryWrapper<T> getQueryWrapper(HttpServletRequest request){
-        return new QueryWrapper(getQueryParam(request).toJavaObject(this.entityClass));
+    protected QueryWrapper<T> getQueryWrapper(JSONObject queryParams){
+        return new QueryWrapper(queryParams.toJavaObject(this.entityClass));
     }
 
-    protected <V> QueryWrapper<V> getQueryWrapper(HttpServletRequest request,Class<V> clazz){
-        return new QueryWrapper<>(getQueryParam(request).toJavaObject(clazz));
+    protected <V> QueryWrapper<V> getQueryWrapper(JSONObject queryParams,Class<V> clazz){
+        return new QueryWrapper<>(queryParams.toJavaObject(clazz));
     }
 
     /**
      * 获取分页对象
-     * @param request 传入request请求
+     * @param queryParams 传入请求参数
      * @return 返回分页请求对象
      */
-    protected Page<T> getPage(HttpServletRequest request){
-        JSONObject queryParams = getQueryParam(request);
+    protected Page<T> getPage(JSONObject queryParams){
         Long pageNum = queryParams.getLong("pageNum");
         Long pageSize = queryParams.getLong("pageSize");
         pageNum = pageNum != null ? pageNum : 1L;
@@ -134,22 +133,20 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
 
     /**
      * 获取当前页码
-     * @param request 传入请求参数
+     * @param queryParams 传入请求参数
      * @return 返回当前页码
      */
-    protected Long getPageNum(HttpServletRequest request){
-        JSONObject queryParams = getQueryParam(request);
+    protected Long getPageNum(JSONObject queryParams){
         Long pageNum = queryParams.getLong("pageNum");
         return pageNum != null ? pageNum : 1L;
     }
 
     /**
      * 获取当前每页显示条数
-     * @param request 传入请求参数
+     * @param queryParams 传入请求参数
      * @return 返回每页显示条数
      */
-    protected Long getPageSize(HttpServletRequest request){
-        JSONObject queryParams = getQueryParam(request);
+    protected Long getPageSize(JSONObject queryParams){
         Long pageSize = queryParams.getLong("pageSize");
         return pageSize != null ? pageSize : 10L;
     }
@@ -170,9 +167,15 @@ public abstract class BaseController<T extends BaseEntity,S extends BaseService<
         }catch (Exception e){
             e.printStackTrace();
         }
-        JSONObject queryParam = JSONObject.parseObject(wholeStr);
-        if(queryParam == null){
-            queryParam = new JSONObject();
+        JSONObject queryParams = JSONObject.parseObject(wholeStr);
+        if(queryParams == null){
+            queryParams = new JSONObject();
+        }
+        JSONObject queryParam = new JSONObject();
+        for(Map.Entry<String, Object> entry : queryParams.entrySet()){
+            if(entry.getValue() != null && !"".equals(entry.getValue())){
+                queryParam.put(entry.getKey(), entry.getValue());
+            }
         }
         log.info(queryParam.toJSONString());
         return queryParam;
